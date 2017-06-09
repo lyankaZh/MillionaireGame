@@ -1,0 +1,13 @@
+﻿body {
+    background: url('../Content/Images/Millionaire_Background.png') no-repeat center center fixed;
+}
+
+
+
+.center-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
