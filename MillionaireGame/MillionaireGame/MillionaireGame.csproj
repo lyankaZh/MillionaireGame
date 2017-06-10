@@ -145,6 +145,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\millionaire.jpg" />
     <Content Include="Content\Images\Millionaire_Background.png" />
@@ -163,6 +164,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Styles\gameStyles.css" />
     <Content Include="Styles\homePageStyles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -175,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
