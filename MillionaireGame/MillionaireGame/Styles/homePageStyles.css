@@ -1,5 +1,6 @@
 ﻿body {
     background: url('../Content/Images/Millionaire_Background.png') no-repeat center center fixed;
+    box-sizing: border-box;
 }
 
 
@@ -10,4 +11,16 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%)
+}
+
+.text {
+    padding-top: 10px;
+    text-align: center;
+    color: white;
+    font-size: 150%;
+    position: relative;
+    z-index: 100;
+}
+ul {
+    list-style-type: none;
 }
