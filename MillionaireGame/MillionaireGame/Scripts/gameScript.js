@@ -6,6 +6,8 @@ for (var i = 0; i < 4; i++) {
     $("#" + i).on("click", checkAnswer);
 }
 
+$("#t" + hightlightedTableIndex).css({ "background-color": "white", "color": "black" });
+
 function checkAnswer(e) {
     var selectedButton = e.target;
     $(selectedButton).css('background-color', 'blue');

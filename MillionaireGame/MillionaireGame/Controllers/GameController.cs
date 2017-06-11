@@ -32,8 +32,7 @@ namespace MillionaireGame.Controllers
                 if (!string.IsNullOrEmpty(username))
                 {
                     Session["username"] = username;
-                    Session["currentQuestionIndex"] = 1;
-                    return RedirectToAction("NextQuestion");
+                    return RedirectToAction("NextQuestion", new {questionNumber = 0});
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
                 return View("Index");
@@ -42,13 +41,14 @@ namespace MillionaireGame.Controllers
             return View("Index");
         }
 
-        public ActionResult NextQuestion()
+        public ActionResult NextQuestion(int questionNumber)
         {
-            if ((int)Session["currentQuestionIndex"] == 3)
+            questionNumber++;
+            if (questionNumber == 3)
             {
-                return View("EndGameView",15);
+                return View("EndGameView", 15);
             }
-            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == (int)Session["currentQuestionIndex"]).ToList();
+            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
             if (!allQuestionsFromLevel.Any())
             {
                 //return another view with error message
@@ -67,13 +67,13 @@ namespace MillionaireGame.Controllers
             model.Options.Add(currentQuestion.Option4);
             model.AnswerId = currentQuestion.Answer - 1;
             model.AnswerText = model.Options[currentQuestion.Answer - 1];
-            Session["currentQuestionIndex"] = (int)Session["currentQuestionIndex"]+1;
+            model.QuestionNumber = questionNumber;
             return View("StartGame", model);
         }
 
         public ActionResult EndGame()
         {
-            return View("EndGameView",15);
+            return View("EndGameView", 15);
         }
     }
 }
