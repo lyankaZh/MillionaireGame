@@ -9,6 +9,7 @@ namespace MillionaireGame.Models
     {
         public string QuestionText { get; set; }
         public List<string> Options { get; set; }
-        public string Answer { get; set; }
+        public string AnswerText { get; set; }
+        public int AnswerId { get; set; }
     }
 }

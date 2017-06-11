@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MillionaireGame.DAL.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MillionaireGame.DAL.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MillionaireGame.Tests.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MillionaireGame.Tests.App_Start.NinjectWebCommon), "Stop")]
 
-namespace MillionaireGame.DAL.App_Start
+namespace MillionaireGame.Tests.App_Start
 {
     using System;
     using System.Web;

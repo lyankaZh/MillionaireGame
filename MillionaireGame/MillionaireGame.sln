@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireGame", "Milliona
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireGame.DAL", "MillionaireGame.DAL\MillionaireGame.DAL.csproj", "{9541BF26-04F5-4382-B4F3-117485C306B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MillionaireGame.Tests", "MillionaireGame.Tests\MillionaireGame.Tests.csproj", "{BF150420-D20E-4EF9-82B2-1DFEAE757489}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9541BF26-04F5-4382-B4F3-117485C306B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9541BF26-04F5-4382-B4F3-117485C306B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9541BF26-04F5-4382-B4F3-117485C306B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF150420-D20E-4EF9-82B2-1DFEAE757489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF150420-D20E-4EF9-82B2-1DFEAE757489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF150420-D20E-4EF9-82B2-1DFEAE757489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF150420-D20E-4EF9-82B2-1DFEAE757489}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

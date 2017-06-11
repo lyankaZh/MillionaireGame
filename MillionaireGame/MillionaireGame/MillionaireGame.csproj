@@ -162,6 +162,7 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gameScript.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Styles\gameStyles.css" />
@@ -190,6 +191,7 @@
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Game\StartGame.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Game\EndGameView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

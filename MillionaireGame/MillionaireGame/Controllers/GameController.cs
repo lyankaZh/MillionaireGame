@@ -13,8 +13,6 @@ namespace MillionaireGame.Controllers
     {
         private IQuestionRepository _repository;
         private Random _random = new Random();
-        private List<Question> questions = new List<Question>();
-        private int currentQuestion;
 
         public GameController(IQuestionRepository repository)
         {
@@ -27,14 +25,15 @@ namespace MillionaireGame.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartGame(string username)
+        public ActionResult LogUser(string username)
         {
             if (ModelState.IsValid)
             {
                 if (!string.IsNullOrEmpty(username))
                 {
                     Session["username"] = username;
-                    return RedirectToAction("StartGame");
+                    Session["currentQuestionIndex"] = 1;
+                    return RedirectToAction("NextQuestion");
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
                 return View("Index");
@@ -43,36 +42,38 @@ namespace MillionaireGame.Controllers
             return View("Index");
         }
 
-        public ActionResult StartGame()
+        public ActionResult NextQuestion()
         {
-            for (int i = 1; i <= 15; i++)
+            if ((int)Session["currentQuestionIndex"] == 3)
             {
-                var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == i).ToList();
-                if (!allQuestionsFromLevel.Any())
-                {
-                    //return another view with error message
-                    return View("Index");
-                }
-                questions.Add(allQuestionsFromLevel[_random.Next(0,allQuestionsFromLevel.Count)]);
+                return View("EndGameView",15);
             }
+            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == (int)Session["currentQuestionIndex"]).ToList();
+            if (!allQuestionsFromLevel.Any())
+            {
+                //return another view with error message
+                return View("Index");
+            }
+            var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = new QuestionModel()
             {
-                QuestionText = questions[currentQuestion].QuestionText,
+                QuestionText = currentQuestion.QuestionText,
                 Options = new List<string>()
             };
 
-            model.Options.Add(questions[currentQuestion].Option1);
-            model.Options.Add(questions[currentQuestion].Option2);
-            model.Options.Add(questions[currentQuestion].Option3);
-            model.Options.Add(questions[currentQuestion].Option4);
-            model.Answer = model.Options[questions[currentQuestion].Answer - 1];
+            model.Options.Add(currentQuestion.Option1);
+            model.Options.Add(currentQuestion.Option2);
+            model.Options.Add(currentQuestion.Option3);
+            model.Options.Add(currentQuestion.Option4);
+            model.AnswerId = currentQuestion.Answer - 1;
+            model.AnswerText = model.Options[currentQuestion.Answer - 1];
+            Session["currentQuestionIndex"] = (int)Session["currentQuestionIndex"]+1;
             return View("StartGame", model);
         }
 
-        public ActionResult NextQuestion()
+        public ActionResult EndGame()
         {
-            return View("StartGame");
+            return View("EndGameView",15);
         }
-           
     }
 }

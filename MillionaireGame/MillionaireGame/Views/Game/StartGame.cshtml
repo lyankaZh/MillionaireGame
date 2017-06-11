@@ -13,14 +13,27 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-<div>
-    <div>
-        @Model.QuestionText
+    <div class="main-text">
+        <div style="color:white">
+            @Model.QuestionText
+        </div>
+        @for (int i = 0; i < 4; i++)
+        {
+            <button id="@i">@Model.Options[i]</button>
+        }
     </div>
-    @for (int i = 0; i < 4; i++)
-    {
-        <button id ="@i">@Model.Options[i]</button>
-    }
-</div>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+    <script type="text/javascript">
+        var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
+        var correctText = '@Model.AnswerText';
+        var correctButtonId = '@Model.AnswerId';
+
+       
+
+
+
+    </script>
+    <script src="~/Scripts/gameScript.js"></script>
 </body>
 </html>
