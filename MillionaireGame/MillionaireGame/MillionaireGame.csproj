@@ -146,15 +146,21 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\background.jpg" />
+    <Content Include="Content\Images\HintsImages\hint50.png" />
+    <Content Include="Content\Images\HintsImages\hint50Crossed.png" />
+    <Content Include="Content\Images\HintsImages\hintAsk.png" />
+    <Content Include="Content\Images\HintsImages\hintAskCrossed.png" />
+    <Content Include="Content\Images\HintsImages\hintPhone.png" />
+    <Content Include="Content\Images\HintsImages\hintPhoneCrossed.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\millionaire.jpg" />
     <Content Include="Content\Images\Millionaire_Background.png" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -165,6 +171,7 @@
     <Content Include="Scripts\gameScript.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\scriptForGame.js" />
     <Content Include="Styles\gameStyles.css" />
     <Content Include="Styles\homePageStyles.css" />
     <Content Include="Web.config" />
@@ -201,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

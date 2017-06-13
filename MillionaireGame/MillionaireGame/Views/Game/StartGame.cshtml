@@ -14,92 +14,110 @@
 </head>
 <body>
 
-<div>
-    <table>
-        <tr id="t15">
-            <td>15</td>
-            <td>1000000$</td>
-        </tr>
-        <tr id="t14">
-            <td>14</td>
-            <td>500000$</td>
-        </tr>
-        <tr id="t13">
-            <td>13</td>
-            <td>250000$</td>
-        </tr>
-        <tr id="t12">
-            <td>12</td>
-            <td>125000$</td>
-        </tr>
-        <tr id="t11">
-            <td>11</td>
-            <td>64000$</td>
-        </tr>
-        <tr id="t10">
-            <td>10</td>
-            <td>32000$</td>
-        </tr>
-        <tr id="t9">
-            <td>9</td>
-            <td>16000$</td>
-        </tr>
-        <tr id="t8">
-            <td>8</td>
-            <td>8000$</td>
-        </tr>
-        <tr id="t7">
-            <td>7</td>
-            <td>4000$</td>
-        </tr>
-        <tr id="t6">
-            <td>6</td>
-            <td>2000$</td>
-        </tr> 
-        <tr id="t5">
-            <td>5</td>
-            <td>1000$</td>
-        </tr>
-        <tr id="t4">
-            <td>4</td>
-            <td>500$</td>
-        </tr> 
-        <tr id="t3">
-            <td>3</td>
-            <td>300$</td>
-        </tr>
-        <tr id="t2">
-            <td>2</td>
-            <td>200$</td>
-        </tr>
-        <tr id="t1">
-            <td>1</td>
-            <td>100$</td>
-        </tr> 
-    </table>
+    <div>
+        <table>
+            <tr id="t15">
+                <td>15</td>
+                <td>1000000$</td>
+            </tr>
+            <tr id="t14">
+                <td>14</td>
+                <td>500000$</td>
+            </tr>
+            <tr id="t13">
+                <td>13</td>
+                <td>250000$</td>
+            </tr>
+            <tr id="t12">
+                <td>12</td>
+                <td>125000$</td>
+            </tr>
+            <tr id="t11">
+                <td>11</td>
+                <td>64000$</td>
+            </tr>
+            <tr id="t10">
+                <td>10</td>
+                <td>32000$</td>
+            </tr>
+            <tr id="t9">
+                <td>9</td>
+                <td>16000$</td>
+            </tr>
+            <tr id="t8">
+                <td>8</td>
+                <td>8000$</td>
+            </tr>
+            <tr id="t7">
+                <td>7</td>
+                <td>4000$</td>
+            </tr>
+            <tr id="t6">
+                <td>6</td>
+                <td>2000$</td>
+            </tr>
+            <tr id="t5">
+                <td>5</td>
+                <td>1000$</td>
+            </tr>
+            <tr id="t4">
+                <td>4</td>
+                <td>500$</td>
+            </tr>
+            <tr id="t3">
+                <td>3</td>
+                <td>300$</td>
+            </tr>
+            <tr id="t2">
+                <td>2</td>
+                <td>200$</td>
+            </tr>
+            <tr id="t1">
+                <td>1</td>
+                <td>100$</td>
+            </tr>
+        </table>
 
-</div>
-    
-
-<div class="main-text">
-    <div style="color: white">
-        Question #@Model.QuestionNumber
-        @Model.QuestionText
     </div>
-    @for (int i = 0; i < 4; i++)
-    {
-        <button id="@i">@Model.Options[i]</button>
-    }
-</div>
-<script src="~/Scripts/jquery-1.9.1.js"></script>
 
-<script type="text/javascript">
-    var nextQuestionUrl = '@Url.Action("NextQuestion", "Game", new {questionNumber  = Model.QuestionNumber})';
-    var correctText = '@Model.AnswerText';
-    var correctButtonId = '@Model.AnswerId';
-    var hightlightedTableIndex = @Model.QuestionNumber;
 
-</script>
-<script src="~/Scripts/gameScript.js"></script>
+    <div class="main-text">
+        <div style="color: white">
+            Question #@Model.QuestionNumber
+            @Model.QuestionText
+        </div>
+        @for (int i = 0; i < 4; i++)
+        {
+            <button id="@i">@Model.Options[i]</button>
+        }
+    </div>
+
+    <div>
+        @if ((bool)Session["IsFiftyFiftyUsed"])
+        {
+            <img src="~/Content/Images/HintsImages/hint50Crossed.png" />
+        }
+        else
+        {
+            <a href='@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})'>
+                <img src="~/Content/Images/HintsImages/hint50.png" />
+            </a>
+        }
+
+        <img src="~/Content/Images/HintsImages/hintAsk.png" />
+        <img src="~/Content/Images/HintsImages/hintPhone.png" />
+    </div>
+
+
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+    <script type="text/javascript">
+        var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
+        var correctText = '@Model.AnswerText';
+        var correctButtonId = '@Model.AnswerId';
+        var hightlightedTableIndex = @Model.QuestionNumber;
+
+    </script>
+    <script src="~/Scripts/scriptForGame.js"></script>
 </body>
 </html>
