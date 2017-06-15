@@ -99,9 +99,7 @@
         }
         else
         {
-            <a href='@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})'>
-                <img src="~/Content/Images/HintsImages/hint50.png" />
-            </a>
+            <img id="img1" src="~/Content/Images/HintsImages/hint50.png" />
         }
 
         <img src="~/Content/Images/HintsImages/hintAsk.png" />
@@ -116,6 +114,9 @@
         var correctText = '@Model.AnswerText';
         var correctButtonId = '@Model.AnswerId';
         var hightlightedTableIndex = @Model.QuestionNumber;
+        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';
+
+
 
     </script>
     <script src="~/Scripts/scriptForGame.js"></script>

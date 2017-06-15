@@ -7,7 +7,7 @@
 
     }
 
-
+    $("#img1").on("click", redirectToFiftyFifty);
 
 $("#t" + hightlightedTableIndex).css({ "background-color": "white", "color": "black" });
 
@@ -20,7 +20,6 @@ function checkAnswer(e) {
                 var newButton = $('<button>Next question</button>');
                 $(newButton).click(function () {
                     //window.location.href = window.nextQuestionUrl;
-                    debugger;
                     post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
                 });
                 $("body").append(newButton);
@@ -29,6 +28,7 @@ function checkAnswer(e) {
                 $(selectedButton).css('background-color', 'red');
             }
             disableEvents();
+            $("#img1").off("click", redirectToFiftyFifty);
         },
         1000);
 }
@@ -36,6 +36,10 @@ function disableEvents() {
     for (var i = 0; i < 4; i++) {
         $("#" + i).off('click', checkAnswer);
     }
+}
+
+function redirectToFiftyFifty() {
+    window.location.href = window.redirectToFiftyUrl;
 }
 
 // Post to the provided URL with the specified parameters.
