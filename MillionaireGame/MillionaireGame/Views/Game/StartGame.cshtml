@@ -91,7 +91,7 @@
 <div>
     @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
     {
-        <button type="submit" style="display:none;">Next question</button>
+        <button type="submit" style="display:none;" id="next_question">Next question</button>
     }
 </div>
 
@@ -134,10 +134,8 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <script type="text/javascript">
-    @{
-        int hightlightedTableIndex = (int)Session["QuestionNumber"]-1;
-    }
-    $("#t" + @hightlightedTableIndex).css({ "background-color": "white", "color": "black" });
+   
+    
 </script>
 </body>
 </html>

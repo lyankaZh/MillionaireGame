@@ -17,7 +17,7 @@ function checkAnswer(e) {
     setTimeout(function () {
             if (selectedButton.innerText == window.correctText) {
                 $(selectedButton).css('background-color', 'greenyellow');
-
+                $("#next_question").show();
                 //var newButton = $('<button>Next question</button>');
                 //$(newButton).click(function () {
                 //    //window.location.href = window.nextQuestionUrl;

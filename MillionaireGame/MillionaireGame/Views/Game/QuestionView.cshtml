@@ -13,11 +13,15 @@
 
 <script src="~/Scripts/jquery-1.9.1.js"></script>
 <script type="text/javascript">
-        //var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
-        var correctText = '@Model.AnswerText';
-        var correctButtonId = '@Model.AnswerId';
-        //var hightlightedTableIndex = @Model.QuestionNumber;
-        //var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';
+    $("#next_question").hide();
+    $("#t" + @Model.QuestionNumber).css({ "background-color": "white", "color": "black" });
+    var index = @Model.QuestionNumber - 1;
+    $("#t" + index).css({ "background-color": "transparent", "color": "white" });
+    //var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
+    var correctText = '@Model.AnswerText';
+    var correctButtonId = '@Model.AnswerId';
+    //var hightlightedTableIndex = @Model.QuestionNumber;
+    //var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';
 
 </script>
 <script src="~/Scripts/scriptForGame.js"></script>
