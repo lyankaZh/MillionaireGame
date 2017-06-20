@@ -15,13 +15,13 @@ namespace MillionaireGame.Controllers
     public class GameController : Controller
     {
         private IQuestionRepository _repository;
-        private IMessageSender messageSender;
+        private IMessageSender _messageSender;
         private Random _random = new Random();
 
         public GameController(IQuestionRepository repository, IMessageSender sender)
         {
             _repository = repository;
-            messageSender = sender;
+            _messageSender = sender;
         }
 
         public ActionResult Index()
@@ -40,7 +40,9 @@ namespace MillionaireGame.Controllers
                     Session["IsFiftyFiftyUsed"] = false;
                     Session["IsAudienceAskUsed"] = false;
                     Session["IsPhoneCallUsed"] = false;
-                    return NextQuestion(0);
+                    Session["QuestionNumber"] = 1;
+                    //var model = GetQuestionModel(1);
+                    return View("StartGame");
                     //return RedirectToAction("NextQuestion", new {questionNumber = 0});
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
@@ -49,30 +51,35 @@ namespace MillionaireGame.Controllers
 
             return View("Index");
         }
-        
 
 
-        [HttpPost]
-        public ActionResult NextQuestion(int questionNumber)
+        public ActionResult NextQuestion()
         {
-            questionNumber++;
-            if (questionNumber == 5)
-            {
-                return View("EndGameView", 15);
-            }
+            int questionNumber = (int)Session["QuestionNumber"];
+            //if (questionNumber == 5)
+            //{
+            //    return View("EndGameView", 15);
+            //}
+            QuestionModel model = GetQuestionModel(questionNumber);
+            Session["QuestionNumber"] = questionNumber + 1;
+            return PartialView("QuestionView", model);
+        }
+
+        public QuestionModel GetQuestionModel(int questionNumber)
+        {
             var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
-            if (!allQuestionsFromLevel.Any())
-            {
-                //return another view with error message
-                return View("Index");
-            }
+            //if (!allQuestionsFromLevel.Any())
+            //{
+            //    //return another view with error message
+            //    return View("Index");
+            //}
             var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
-            QuestionModel model = new QuestionModel()
+            QuestionModel model = new QuestionModel
             {
                 QuestionText = currentQuestion.QuestionText,
-                Options = new List<string>()
+                Options = new List<string>(),
+                QuestionId = currentQuestion.QuestionId
             };
-            model.QuestionId = currentQuestion.QuestionId;
             model.Options.Add(currentQuestion.Option1);
             model.Options.Add(currentQuestion.Option2);
             model.Options.Add(currentQuestion.Option3);
@@ -80,10 +87,9 @@ namespace MillionaireGame.Controllers
             model.AnswerId = currentQuestion.Answer - 1;
             model.AnswerText = model.Options[currentQuestion.Answer - 1];
             model.QuestionNumber = questionNumber;
-            return View("StartGame", model);
+            return model;
         }
 
-        
         public ActionResult EndGame()
         {
             return View("EndGameView", 15);
@@ -99,7 +105,7 @@ namespace MillionaireGame.Controllers
                 QuestionText = question.QuestionText,
                 QuestionNumber = question.Difficulty,
                 AnswerId = question.Answer - 1,
-               
+
                 Options = new List<string>
                 { question.Option1, question.Option2, question.Option3, question.Option4}
             };
@@ -113,7 +119,7 @@ namespace MillionaireGame.Controllers
                 }
             }
             Random random = new Random();
-            randomList.RemoveAt(random.Next(0,randomList.Count));
+            randomList.RemoveAt(random.Next(0, randomList.Count));
 
             model.Options[randomList[0]] = "";
             model.Options[randomList[1]] = "";
@@ -124,13 +130,13 @@ namespace MillionaireGame.Controllers
 
         //public ActionResult CallFriend()
         //{
-               
+
         //}
-        
+
         public async Task<ActionResult> SendEmail()
         {
             var message = new MailMessage();
-            message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com")); 
+            message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com"));
             message.Subject = "Millionaire game";
             message.Body = "Hello";
             using (var smtp = new SmtpClient())

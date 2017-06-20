@@ -1,6 +1,10 @@
-﻿@model MillionaireGame.Models.QuestionModel
+﻿@*@model MillionaireGame.Models.QuestionModel*@
 @{
     Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "question"
+    };
 }
 
 <!DOCTYPE html>
@@ -79,12 +83,18 @@
         </table>
 
     </div>
-    
-<div id="question">
-    @Html.Partial("QuestionView", Model)    
-</div>
 
+    <div id="question">
+        @Html.Action("NextQuestion", new { questionNumber = 0})
+    </div>
+
+<div>
     
+    @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
+    {
+        <button type="submit">Next question</button>
+    }
+</div>
 
     <div>
         @if ((bool)Session["IsFiftyFiftyUsed"])
@@ -122,13 +132,14 @@
 
 
     <script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     <script type="text/javascript">
-        var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
+        @*var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
         var correctText = '@Model.AnswerText';
         var correctButtonId = '@Model.AnswerId';
         var hightlightedTableIndex = @Model.QuestionNumber;
-        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';
+        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';*@
 
     </script>
     <script src="~/Scripts/scriptForGame.js"></script>
