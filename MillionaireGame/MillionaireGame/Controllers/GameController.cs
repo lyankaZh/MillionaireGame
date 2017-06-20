@@ -29,7 +29,7 @@ namespace MillionaireGame.Controllers
             return View("Index");
         }
 
-        [HttpPost]
+        
         public ActionResult StartGame(string username)
         {
             if (ModelState.IsValid)
@@ -56,10 +56,10 @@ namespace MillionaireGame.Controllers
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
-            //if (questionNumber == 5)
-            //{
-            //    return View("EndGameView", 15);
-            //}
+            if (questionNumber == 5)
+            {
+                return View("EndGameView", 15);
+            }
             QuestionModel model = GetQuestionModel(questionNumber);
             Session["QuestionNumber"] = questionNumber + 1;
             return PartialView("QuestionView", model);

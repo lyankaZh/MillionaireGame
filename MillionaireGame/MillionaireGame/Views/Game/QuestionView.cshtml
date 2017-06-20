@@ -12,7 +12,10 @@
 </div>
 
 <script src="~/Scripts/jquery-1.9.1.js"></script>
+
 <script type="text/javascript">
+    
+
     $("#next_question").hide();
     $("#t" + @Model.QuestionNumber).css({ "background-color": "white", "color": "black" });
     var index = @Model.QuestionNumber - 1;

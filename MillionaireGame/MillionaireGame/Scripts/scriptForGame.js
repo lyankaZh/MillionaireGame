@@ -1,43 +1,43 @@
 ﻿
-    for (var i = 0; i < 4; i++) {
-        var button = $("#" + i);
-        if (button.text() != "") {
-            $(button).on("click", checkAnswer);
-        }
-    }
+//for (var i = 0; i < 4; i++) {
+//    var button = $("#" + i);
+//    if (button.text() != "") {
+//        $(button).on("click", checkAnswer);
+//    }
+//}
 
-    $("#img1").on("click", redirectToFiftyFifty);
-    
+$("#img1").on("click", redirectToFiftyFifty);
+
 
 
 
 function checkAnswer(e) {
     var selectedButton = e.target;
     $(selectedButton).css('background-color', 'blue');
+    disableEvents();
     setTimeout(function () {
-            if (selectedButton.innerText == window.correctText) {
-                $(selectedButton).css('background-color', 'greenyellow');
-                $("#next_question").show();
-                //var newButton = $('<button>Next question</button>');
-                //$(newButton).click(function () {
-                //    //window.location.href = window.nextQuestionUrl;
-                //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
-                //});
-                //$("body").append(newButton);
+        if (selectedButton.innerText == window.correctText) {
+            $(selectedButton).css('background-color', 'greenyellow');
+            $("#next_question").show();
+            //var newButton = $('<button>Next question</button>');
+            //$(newButton).click(function () {
+            //    //window.location.href = window.nextQuestionUrl;
+            //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
+            //});
+            //$("body").append(newButton);
+        } else {
+            $('#' + window.correctButtonId).css("background-color", "greenyellow");
+            $(selectedButton).css('background-color', 'red');
+        }
 
-
-            } else {
-                $('#' + window.correctButtonId).css("background-color", "greenyellow");
-                $(selectedButton).css('background-color', 'red');
-            }
-            disableEvents();
-            $("#img1").off("click", redirectToFiftyFifty);
-        },
+        
+        $("#img1").off("click", redirectToFiftyFifty);
+    },
         1000);
 }
 function disableEvents() {
     for (var i = 0; i < 4; i++) {
-        $("#" + i).off('click', checkAnswer);
+        $("#" + i).off("click");
     }
 }
 

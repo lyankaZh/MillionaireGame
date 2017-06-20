@@ -3,7 +3,8 @@
     Layout = null;
     AjaxOptions ajaxOptions = new AjaxOptions
     {
-        UpdateTargetId = "question"
+        UpdateTargetId = "question",
+        OnSuccess = "enableEvents"
     };
 }
 
@@ -127,14 +128,23 @@
 
     </div>
 
-    @Html.ActionLink("Send", "SendEmail", "Game");
+    @Html.ActionLink("Send", "SendEmail", "Game")
 
 
-    <script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-1.9.1.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <script type="text/javascript">
-   
+    $(document).ready(enableEvents);
+
+    function enableEvents() {
+        for (var i = 0; i < 4; i++) {
+            var button = $("#" + i);
+            if (button.text() != "") {
+                $(button).on("click", checkAnswer);
+            }
+        }
+    }
     
 </script>
 </body>
