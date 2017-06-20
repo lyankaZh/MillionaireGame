@@ -9,7 +9,7 @@
     $("#img1").on("click", redirectToFiftyFifty);
     
 
-$("#t" + hightlightedTableIndex).css({ "background-color": "white", "color": "black" });
+
 
 function checkAnswer(e) {
     var selectedButton = e.target;
@@ -18,12 +18,13 @@ function checkAnswer(e) {
             if (selectedButton.innerText == window.correctText) {
                 $(selectedButton).css('background-color', 'greenyellow');
 
-                var newButton = $('<button>Next question</button>');
-                $(newButton).click(function () {
-                    //window.location.href = window.nextQuestionUrl;
-                    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
-                });
-                $("body").append(newButton);
+                //var newButton = $('<button>Next question</button>');
+                //$(newButton).click(function () {
+                //    //window.location.href = window.nextQuestionUrl;
+                //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
+                //});
+                //$("body").append(newButton);
+
 
             } else {
                 $('#' + window.correctButtonId).css("background-color", "greenyellow");

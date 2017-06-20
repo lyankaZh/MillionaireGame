@@ -89,10 +89,9 @@
     </div>
 
 <div>
-    
     @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
     {
-        <button type="submit">Next question</button>
+        <button type="submit" style="display:none;">Next question</button>
     }
 </div>
 
@@ -134,14 +133,11 @@
     <script src="~/Scripts/jquery-1.9.1.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-    <script type="text/javascript">
-        @*var nextQuestionUrl = '@Url.Action("NextQuestion", "Game")';
-        var correctText = '@Model.AnswerText';
-        var correctButtonId = '@Model.AnswerId';
-        var hightlightedTableIndex = @Model.QuestionNumber;
-        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';*@
-
-    </script>
-    <script src="~/Scripts/scriptForGame.js"></script>
+<script type="text/javascript">
+    @{
+        int hightlightedTableIndex = (int)Session["QuestionNumber"]-1;
+    }
+    $("#t" + @hightlightedTableIndex).css({ "background-color": "white", "color": "black" });
+</script>
 </body>
 </html>
