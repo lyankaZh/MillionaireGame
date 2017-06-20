@@ -184,6 +184,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailSender.cs" />
+    <Compile Include="Helpers\IMessageSender.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -199,6 +201,7 @@
     <Content Include="Views\Game\StartGame.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Game\EndGameView.cshtml" />
+    <Content Include="Views\Game\QuestionView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -208,7 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

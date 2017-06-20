@@ -1,0 +1,13 @@
+﻿@model MillionaireGame.Models.QuestionModel
+    
+<div class="main-text">
+    <div style="color: white">
+        Question #@Model.QuestionNumber
+        @Model.QuestionText
+    </div>
+    @for (int i = 0; i < 4; i++)
+    {
+        <button id="@i">@Model.Options[i]</button>
+    }
+</div>
+

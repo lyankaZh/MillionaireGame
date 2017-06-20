@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MillionaireGame.DAL.Entities;
 using MillionaireGame.DAL.Repository;
+using MillionaireGame.Helpers;
 using MillionaireGame.Models;
 
 namespace MillionaireGame.Controllers
@@ -12,11 +15,13 @@ namespace MillionaireGame.Controllers
     public class GameController : Controller
     {
         private IQuestionRepository _repository;
+        private IMessageSender messageSender;
         private Random _random = new Random();
 
-        public GameController(IQuestionRepository repository)
+        public GameController(IQuestionRepository repository, IMessageSender sender)
         {
             _repository = repository;
+            messageSender = sender;
         }
 
         public ActionResult Index()
@@ -115,6 +120,29 @@ namespace MillionaireGame.Controllers
             Session["IsFiftyFiftyUsed"] = true;
             return View("StartGame", model);
 
+        }
+
+        //public ActionResult CallFriend()
+        //{
+               
+        //}
+        
+        public async Task<ActionResult> SendEmail()
+        {
+            var message = new MailMessage();
+            message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com")); 
+            message.Subject = "Millionaire game";
+            message.Body = "Hello";
+            using (var smtp = new SmtpClient())
+            {
+                await smtp.SendMailAsync(message);
+                return RedirectToAction("EndGame");
+            }
+        }
+
+        public ActionResult AskAudience()
+        {
+            throw new NotImplementedException();
         }
     }
 }

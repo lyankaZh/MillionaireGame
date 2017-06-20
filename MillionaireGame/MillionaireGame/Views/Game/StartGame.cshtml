@@ -79,18 +79,12 @@
         </table>
 
     </div>
+    
+<div id="question">
+    @Html.Partial("QuestionView", Model)    
+</div>
 
-
-    <div class="main-text">
-        <div style="color: white">
-            Question #@Model.QuestionNumber
-            @Model.QuestionText
-        </div>
-        @for (int i = 0; i < 4; i++)
-        {
-            <button id="@i">@Model.Options[i]</button>
-        }
-    </div>
+    
 
     <div>
         @if ((bool)Session["IsFiftyFiftyUsed"])
@@ -102,9 +96,29 @@
             <img id="img1" src="~/Content/Images/HintsImages/hint50.png" />
         }
 
-        <img src="~/Content/Images/HintsImages/hintAsk.png" />
-        <img src="~/Content/Images/HintsImages/hintPhone.png" />
+        @if ((bool)Session["IsPhoneCallUsed"])
+        {
+            <img src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
+        }
+        else
+        {
+            <img src="~/Content/Images/HintsImages/hintPhone.png" />
+        }
+
+        @if ((bool)Session["IsAudienceAskUsed"])
+        {
+            <img src="~/Content/Images/HintsImages/hintAskCrossed.png" />
+        }
+        else
+        {
+            <img src="~/Content/Images/HintsImages/hintAsk.png" />
+        }
+
+
+
     </div>
+
+    @Html.ActionLink("Send", "SendEmail", "Game");
 
 
     <script src="~/Scripts/jquery-1.9.1.js"></script>
@@ -115,8 +129,6 @@
         var correctButtonId = '@Model.AnswerId';
         var hightlightedTableIndex = @Model.QuestionNumber;
         var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game", new {questionId = Model.QuestionId})';
-
-
 
     </script>
     <script src="~/Scripts/scriptForGame.js"></script>
