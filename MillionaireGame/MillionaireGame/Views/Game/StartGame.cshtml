@@ -1,4 +1,5 @@
-﻿@*@model MillionaireGame.Models.QuestionModel*@
+﻿@using MillionaireGame.Helpers
+@*@model MillionaireGame.Models.QuestionModel*@
 @{
     Layout = null;
     AjaxOptions ajaxOptions = new AjaxOptions
@@ -97,18 +98,15 @@
 </div>
 
     <div>
-        @if ((bool)Session["IsFiftyFiftyUsed"])
-        {
-            <img src="~/Content/Images/HintsImages/hint50Crossed.png" />
-        }
-        else
-        {
-            <img id="img1" src="~/Content/Images/HintsImages/hint50.png" />
-        }
+       
+        
+        
+        <img id="hint50" alt="50/50" src="~/Content/Images/HintsImages/hint50.png" />
+            <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png" />
 
         @if ((bool)Session["IsPhoneCallUsed"])
         {
-            <img src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
+            <img alt="50/50" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
         }
         else
         {
@@ -135,7 +133,12 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(enableEvents);
+
+    $(document).ready(function() {
+        enableEvents();
+
+    });
+
 
     function enableEvents() {
         for (var i = 0; i < 4; i++) {
@@ -145,7 +148,11 @@
             }
         }
     }
-    
+    var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
+    @**@
+
 </script>
+    
+    <script src="~/Scripts/hintsScript.js"></script>
 </body>
 </html>

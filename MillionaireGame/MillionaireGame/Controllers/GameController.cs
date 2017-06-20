@@ -95,37 +95,39 @@ namespace MillionaireGame.Controllers
             return View("EndGameView", 15);
         }
 
-        public ActionResult FiftyFifty(int questionId)
+
+        public ActionResult FiftyFifty()
         {
-            var question = _repository.GetQuestionById(questionId);
+            //var question = _repository.GetQuestionById(questionId);
 
-            QuestionModel model = new QuestionModel
-            {
-                QuestionId = questionId,
-                QuestionText = question.QuestionText,
-                QuestionNumber = question.Difficulty,
-                AnswerId = question.Answer - 1,
+            //QuestionModel model = new QuestionModel
+            //{
+            //    QuestionId = questionId,
+            //    QuestionText = question.QuestionText,
+            //    QuestionNumber = question.Difficulty,
+            //    AnswerId = question.Answer - 1,
 
-                Options = new List<string>
-                { question.Option1, question.Option2, question.Option3, question.Option4}
-            };
-            model.AnswerText = model.Options[question.Answer - 1];
-            var randomList = new List<int>();
-            for (int i = 0; i < 4; i++)
-            {
-                if (i != model.AnswerId)
-                {
-                    randomList.Add(i);
-                }
-            }
-            Random random = new Random();
-            randomList.RemoveAt(random.Next(0, randomList.Count));
+            //    Options = new List<string>
+            //    { question.Option1, question.Option2, question.Option3, question.Option4}
+            //};
+            //model.AnswerText = model.Options[question.Answer - 1];
+            //var randomList = new List<int>();
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (i != model.AnswerId)
+            //    {
+            //        randomList.Add(i);
+            //    }
+            //}
+            //Random random = new Random();
+            //randomList.RemoveAt(random.Next(0, randomList.Count));
 
-            model.Options[randomList[0]] = "";
-            model.Options[randomList[1]] = "";
-            Session["IsFiftyFiftyUsed"] = true;
-            return View("StartGame", model);
-
+            //model.Options[randomList[0]] = "";
+            //model.Options[randomList[1]] = "";
+            //Session["IsFiftyFiftyUsed"] = true;
+            //return View("StartGame", model);
+            throw new NotImplementedException();
+           
         }
 
         //public ActionResult CallFriend()
