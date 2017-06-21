@@ -1,0 +1,8 @@
+﻿@model Dictionary<string, int>
+    
+@foreach(KeyValuePair<string, int> entry in Model)
+{
+    <p>@entry.Value-@entry.Key%</p>
+}
+
+

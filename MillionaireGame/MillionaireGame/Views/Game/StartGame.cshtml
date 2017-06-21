@@ -87,58 +87,60 @@
     </div>
 
     <div id="question">
-        @Html.Action("NextQuestion", new { questionNumber = 0})
+        @Html.Action("NextQuestion", new { questionNumber = 0 })
     </div>
 
-<div>
-    @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
-    {
-        <button type="submit" style="display:none;" id="next_question">Next question</button>
-    }
-</div>
+    <div>
+        @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
+        {
+            <button type="submit" style="display:none;" id="next_question">Next question</button>
+        }
+    </div>
 
     <div>
-       
-        
-        
+
+
+
         <img id="hint50" alt="50/50" src="~/Content/Images/HintsImages/hint50.png" />
-            <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png" />
+
+        <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png" />
+
+        <img id="friendCall" src="~/Content/Images/HintsImages/hintPhone.png" />
+
+        <img id="friendCallCrossed" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
 
         
-            @*<img alt="50/50" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
-       
-            <img src="~/Content/Images/HintsImages/hintPhone.png" />
-       
-       
-            <img src="~/Content/Images/HintsImages/hintAskCrossed.png" />
-      
+
+
+        @*<img src="~/Content/Images/HintsImages/hintAskCrossed.png" />
+
             <img src="~/Content/Images/HintsImages/hintAsk.png" />*@
-      
+
 
 
 
     </div>
 
     @Html.ActionLink("Send", "SendEmail", "Game")
+@Html.ActionLink("Ask", "AskAudience", new {questionId = 1})
+
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            enableEvents();
+
+        });
 
 
-<script src="~/Scripts/jquery-1.9.1.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
-<script type="text/javascript">
+        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
+        @**@
 
-    $(document).ready(function() {
-        enableEvents();
+    </script>
 
-    });
-
-
-    
-    var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
-    @**@
-
-</script>
-    
     <script src="~/Scripts/hintsScript.js"></script>
 </body>
 </html>

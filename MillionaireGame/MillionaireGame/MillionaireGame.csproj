@@ -206,6 +206,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Game\EndGameView.cshtml" />
     <Content Include="Views\Game\QuestionView.cshtml" />
+    <Content Include="Views\Game\AskAudiencePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

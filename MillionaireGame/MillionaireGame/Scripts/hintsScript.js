@@ -2,6 +2,9 @@
 $("#hint50").on("click", fiftyHint);
 $("#hint50crossed").hide();
 
+$("#friendCall").on("click", friendCallHint);
+$("#friendCallCrossed").hide();
+
 function fiftyHint() {
     $.ajax({
         url: window.redirectToFiftyUrl,
@@ -19,6 +22,11 @@ function fiftyHint() {
         }
     });
 }
+
+function friendCallHint() {
+    
+}
+
 
 function changeHint50Image() {
     $("#hint50").hide();

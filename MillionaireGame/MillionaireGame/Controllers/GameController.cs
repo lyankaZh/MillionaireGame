@@ -132,9 +132,37 @@ namespace MillionaireGame.Controllers
             }
         }
 
-        public ActionResult AskAudience()
+        public ActionResult AskAudience(int questionId)
         {
-            throw new NotImplementedException();
+            var question = _repository.GetQuestionById(questionId);
+            var dictinary = new Dictionary<string,int>();
+            var options = new List<string>
+            {
+                question.Option1, question.Option2, question.Option3, question.Option4
+            };
+            var percentageForAnswer = _random.Next(40, 101);
+            var restPercentage = 100 - percentageForAnswer;
+            int numberOfASymbol = 65;
+            for (int i=0; i<4; i++)
+            {
+                var text = $"{(char) numberOfASymbol}: {options[i]}";
+                if (i == question.Answer-1)
+                {
+                    dictinary.Add(text,percentageForAnswer);
+                }
+                else if (i == 3)
+                {
+                    dictinary.Add(text, restPercentage);
+                }
+                else
+                {
+                    var currentPercentage = _random.Next(0, restPercentage);
+                    dictinary.Add(text, currentPercentage);
+                    restPercentage -= currentPercentage;
+                }
+                numberOfASymbol++;
+            }
+            return PartialView("AskAudiencePartial",dictinary);
         }
     }
 }
