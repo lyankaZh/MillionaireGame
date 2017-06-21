@@ -109,23 +109,28 @@
 
         <img id="friendCallCrossed" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
 
-        
+        <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png"  />
 
-
-        @*<img src="~/Content/Images/HintsImages/hintAskCrossed.png" />
-
-            <img src="~/Content/Images/HintsImages/hintAsk.png" />*@
-
-
-
+        <img id="audienceAskCrossed"  src="~/Content/Images/HintsImages/hintAskCrossed.png"/>
 
     </div>
+    
+    
+    <div id='audienceModal' class='modal'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='audienceModalContent' style="color: black !important"></div>
+            </div>
+        </div>
+    </div>   
+    
 
-    @Html.ActionLink("Send", "SendEmail", "Game")
-@Html.ActionLink("Ask", "AskAudience", new {questionId = 1})
+@Html.ActionLink("Send", "SendEmail", "Game")
+    @Html.ActionLink("Ask", "AskAudience", new { questionId = 1 })
 
     <script src="~/Scripts/jquery-1.9.1.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
 
     <script type="text/javascript">
 
@@ -133,12 +138,9 @@
             enableEvents();
 
         });
-
-
-
         var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
-        @**@
-
+        var redirectToAskAudience = '@Url.Action("AskAudience", "Game")';
+        
     </script>
 
     <script src="~/Scripts/hintsScript.js"></script>
