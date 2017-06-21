@@ -104,23 +104,16 @@
         <img id="hint50" alt="50/50" src="~/Content/Images/HintsImages/hint50.png" />
             <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png" />
 
-        @if ((bool)Session["IsPhoneCallUsed"])
-        {
-            <img alt="50/50" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
-        }
-        else
-        {
+        
+            @*<img alt="50/50" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
+       
             <img src="~/Content/Images/HintsImages/hintPhone.png" />
-        }
-
-        @if ((bool)Session["IsAudienceAskUsed"])
-        {
+       
+       
             <img src="~/Content/Images/HintsImages/hintAskCrossed.png" />
-        }
-        else
-        {
-            <img src="~/Content/Images/HintsImages/hintAsk.png" />
-        }
+      
+            <img src="~/Content/Images/HintsImages/hintAsk.png" />*@
+      
 
 
 
@@ -140,14 +133,7 @@
     });
 
 
-    function enableEvents() {
-        for (var i = 0; i < 4; i++) {
-            var button = $("#" + i);
-            if (button.text() != "") {
-                $(button).on("click", checkAnswer);
-            }
-        }
-    }
+    
     var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
     @**@
 

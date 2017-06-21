@@ -37,9 +37,9 @@ namespace MillionaireGame.Controllers
                 if (!string.IsNullOrEmpty(username))
                 {
                     Session["username"] = username;
-                    Session["IsFiftyFiftyUsed"] = false;
-                    Session["IsAudienceAskUsed"] = false;
-                    Session["IsPhoneCallUsed"] = false;
+                    //Session["IsFiftyFiftyUsed"] = false;
+                    //Session["IsAudienceAskUsed"] = false;
+                    //Session["IsPhoneCallUsed"] = false;
                     Session["QuestionNumber"] = 1;
                     //var model = GetQuestionModel(1);
                     return View("StartGame");
@@ -56,37 +56,32 @@ namespace MillionaireGame.Controllers
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
-            if (questionNumber == 5)
+            if (questionNumber == 15)
             {
                 return View("EndGameView", 15);
             }
-            QuestionModel model = GetQuestionModel(questionNumber);
+            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
+            var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
+            QuestionModel model = GetQuestionModel(currentQuestion);
             Session["QuestionNumber"] = questionNumber + 1;
             return PartialView("QuestionView", model);
         }
 
-        public QuestionModel GetQuestionModel(int questionNumber)
+        public QuestionModel GetQuestionModel(Question question)
         {
-            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
-            //if (!allQuestionsFromLevel.Any())
-            //{
-            //    //return another view with error message
-            //    return View("Index");
-            //}
-            var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = new QuestionModel
             {
-                QuestionText = currentQuestion.QuestionText,
+                QuestionText = question.QuestionText,
                 Options = new List<string>(),
-                QuestionId = currentQuestion.QuestionId
+                QuestionId = question.QuestionId
             };
-            model.Options.Add(currentQuestion.Option1);
-            model.Options.Add(currentQuestion.Option2);
-            model.Options.Add(currentQuestion.Option3);
-            model.Options.Add(currentQuestion.Option4);
-            model.AnswerId = currentQuestion.Answer - 1;
-            model.AnswerText = model.Options[currentQuestion.Answer - 1];
-            model.QuestionNumber = questionNumber;
+            model.Options.Add(question.Option1);
+            model.Options.Add(question.Option2);
+            model.Options.Add(question.Option3);
+            model.Options.Add(question.Option4);
+            model.AnswerId = question.Answer - 1;
+            model.AnswerText = model.Options[question.Answer - 1];
+            model.QuestionNumber = question.Difficulty;
             return model;
         }
 
@@ -96,38 +91,27 @@ namespace MillionaireGame.Controllers
         }
 
 
-        public ActionResult FiftyFifty()
+        public ActionResult FiftyFifty(int questionId)
         {
-            //var question = _repository.GetQuestionById(questionId);
+            var question = _repository.GetQuestionById(questionId);
 
-            //QuestionModel model = new QuestionModel
-            //{
-            //    QuestionId = questionId,
-            //    QuestionText = question.QuestionText,
-            //    QuestionNumber = question.Difficulty,
-            //    AnswerId = question.Answer - 1,
+            QuestionModel model = GetQuestionModel(question);
 
-            //    Options = new List<string>
-            //    { question.Option1, question.Option2, question.Option3, question.Option4}
-            //};
-            //model.AnswerText = model.Options[question.Answer - 1];
-            //var randomList = new List<int>();
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    if (i != model.AnswerId)
-            //    {
-            //        randomList.Add(i);
-            //    }
-            //}
-            //Random random = new Random();
-            //randomList.RemoveAt(random.Next(0, randomList.Count));
+            var randomList = new List<int>();
+            for (int i = 0; i < 4; i++)
+            {
+                if (i != model.AnswerId)
+                {
+                    randomList.Add(i);
+                }
+            }
+            Random random = new Random();
+            randomList.RemoveAt(random.Next(0, randomList.Count));
 
-            //model.Options[randomList[0]] = "";
-            //model.Options[randomList[1]] = "";
-            //Session["IsFiftyFiftyUsed"] = true;
-            //return View("StartGame", model);
-            throw new NotImplementedException();
-           
+            model.Options[randomList[0]] = "";
+            model.Options[randomList[1]] = "";
+            Session["IsFiftyFiftyUsed"] = true;
+            return PartialView("QuestionView", model);
         }
 
         //public ActionResult CallFriend()

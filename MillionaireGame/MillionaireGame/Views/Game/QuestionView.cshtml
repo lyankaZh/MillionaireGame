@@ -14,8 +14,6 @@
 <script src="~/Scripts/jquery-1.9.1.js"></script>
 
 <script type="text/javascript">
-    
-
     $("#next_question").hide();
     $("#t" + @Model.QuestionNumber).css({ "background-color": "white", "color": "black" });
     var index = @Model.QuestionNumber - 1;
@@ -24,6 +22,7 @@
     var correctText = '@Model.AnswerText';
     var correctButtonId = '@Model.AnswerId';
     //var hightlightedTableIndex = @Model.QuestionNumber;
+    var questionId = @Model.QuestionId;
    
 
 </script>
