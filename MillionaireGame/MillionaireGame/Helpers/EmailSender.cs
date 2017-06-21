@@ -17,7 +17,7 @@ namespace MillionaireGame.Helpers
         {
             _repository = repository;
         }
-        public async void SendMessage(string messageText, string to, string username)
+        public void SendMessage(string messageText, string to, string username)
         {
             var message = new MailMessage();
             message.To.Add(new MailAddress(to));
@@ -25,7 +25,7 @@ namespace MillionaireGame.Helpers
             message.Body = messageText;
             using (var smtp = new SmtpClient())
             {
-                await smtp.SendMailAsync(message);
+                 smtp.SendMailAsync(message);
             }
         }
     }

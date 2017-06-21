@@ -6,11 +6,6 @@
 //    }
 //}
 
-
-
-
-
-
 function checkAnswer(e) {
     var selectedButton = e.target;
     $(selectedButton).css('background-color', 'blue');

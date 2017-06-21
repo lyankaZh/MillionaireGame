@@ -1,0 +1,45 @@
+﻿@model MillionaireGame.Models.MessageModel
+    
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        OnSuccess = "confirmSending", 
+        OnFailure = "invalidEmail"
+    };    
+}
+
+<div class="modal-header">  
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>  
+    <h4 class="modal-title" id="myModalLabel">Send email hint</h4>  
+</div>                 
+            
+<div>
+    @using (Ajax.BeginForm("SendEmailToFriend", ajaxOptions))
+    {
+        @Html.HiddenFor(x => x.QuestionId)
+        @Html.TextBoxFor(x => x.Email)
+        <button type="submit" id="sendButton">Send</button>
+    }
+</div>
+
+<div class="confirmText">
+    <p id="paragraph">Invalid email address</p>
+</div>
+
+
+<script type="text/javascript">
+    var paragraph = $("#paragraph");
+    paragraph.hide();
+    function confirmSending() {
+        paragraph.hide();
+        $("#sendButton").hide();
+        $(".confirmText").append("<p>Your email has been send</p>");    
+        $(".confirmText").append("<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>");
+        $("#friendCall").hide();
+        $("#friendCallCrossed").show();
+    }
+    function invalidEmail() {
+        paragraph.show();
+    }
+</script>
+

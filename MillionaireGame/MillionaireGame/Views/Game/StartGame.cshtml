@@ -85,7 +85,7 @@
         </table>
 
     </div>
-
+<script src="~/Scripts/jquery-1.9.1.js"></script>
     <div id="question">
         @Html.Action("NextQuestion", new { questionNumber = 0 })
     </div>
@@ -109,26 +109,30 @@
 
         <img id="friendCallCrossed" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
 
-        <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png"  />
+        <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png" />
 
-        <img id="audienceAskCrossed"  src="~/Content/Images/HintsImages/hintAskCrossed.png"/>
+        <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png" />
 
     </div>
-    
-    
+
+
     <div id='audienceModal' class='modal'>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div id='audienceModalContent' style="color: black !important"></div>
             </div>
         </div>
-    </div>   
-    
+    </div>
 
-@Html.ActionLink("Send", "SendEmail", "Game")
-    @Html.ActionLink("Ask", "AskAudience", new { questionId = 1 })
+    <div id='emailModal' class='modal'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='emailModalContent' style="color: black !important"></div>
+            </div>
+        </div>
+    </div>
 
-    <script src="~/Scripts/jquery-1.9.1.js"></script>
+   
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
 
@@ -136,11 +140,11 @@
 
         $(document).ready(function () {
             enableEvents();
-
         });
+
         var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
         var redirectToAskAudience = '@Url.Action("AskAudience", "Game")';
-        
+        var redirectToCallFriend = '@Url.Action("ShowEmailView", "Game")';
     </script>
 
     <script src="~/Scripts/hintsScript.js"></script>

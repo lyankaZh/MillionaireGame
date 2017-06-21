@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -29,21 +30,16 @@ namespace MillionaireGame.Controllers
             return View("Index");
         }
 
-        
+
         public ActionResult StartGame(string username)
         {
             if (ModelState.IsValid)
             {
                 if (!string.IsNullOrEmpty(username))
                 {
-                    Session["username"] = username;
-                    //Session["IsFiftyFiftyUsed"] = false;
-                    //Session["IsAudienceAskUsed"] = false;
-                    //Session["IsPhoneCallUsed"] = false;
                     Session["QuestionNumber"] = 1;
-                    //var model = GetQuestionModel(1);
+                    Session["username"] = username;
                     return View("StartGame");
-                    //return RedirectToAction("NextQuestion", new {questionNumber = 0});
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
                 return View("Index");
@@ -114,28 +110,67 @@ namespace MillionaireGame.Controllers
             return PartialView("QuestionView", model);
         }
 
-        //public ActionResult CallFriend()
-        //{
-
-        //}
-
-        public async Task<ActionResult> SendEmail()
+        public ActionResult ShowEmailView(int questionId)
         {
-            var message = new MailMessage();
-            message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com"));
-            message.Subject = "Millionaire game";
-            message.Body = "Hello";
-            using (var smtp = new SmtpClient())
+            MessageModel model = new MessageModel
             {
-                await smtp.SendMailAsync(message);
-                return RedirectToAction("EndGame");
-            }
+                QuestionId = questionId
+            };
+            return View("SendEmailPartial", model);
         }
+
+        public async Task<ActionResult> SendEmailToFriend(MessageModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var question = _repository.GetQuestionById(model.QuestionId);
+                var messageText = FormTextForMessage(question);
+
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(model.Email));
+                message.Subject = "Millionaire game";
+                message.Body = messageText;
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                    return new HttpStatusCodeResult(200);
+                }
+                
+            }
+            return new HttpStatusCodeResult(400, "Invalid email address");
+        }
+
+        public string FormTextForMessage(Question question)
+        {
+            StringBuilder messageText = new StringBuilder();
+            messageText.Append("Hello!" + Environment.NewLine);
+            messageText.Append($"Your friend {Session["username"]} needs help in Game 'Who wants to be a Millionaire'" + Environment.NewLine);
+            messageText.Append("Question:" + Environment.NewLine);
+            messageText.Append(question.QuestionText + Environment.NewLine);
+            messageText.Append($"A: {question.Option1}" + Environment.NewLine);
+            messageText.Append($"B: {question.Option2}" + Environment.NewLine);
+            messageText.Append($"C: {question.Option3}" + Environment.NewLine);
+            messageText.Append($"D: {question.Option4}" + Environment.NewLine);
+            return messageText.ToString();
+        }
+
+        //public async Task<ActionResult> SendEmail()
+        //{
+        //    var message = new MailMessage();
+        //    message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com"));
+        //    message.Subject = "Millionaire game";
+        //    message.Body = "Hello";
+        //    using (var smtp = new SmtpClient())
+        //    {
+        //        await smtp.SendMailAsync(message);
+        //        return RedirectToAction("EndGame");
+        //    }
+        //}
 
         public ActionResult AskAudience(int questionId)
         {
             var question = _repository.GetQuestionById(questionId);
-            var dictinary = new Dictionary<string,int>();
+            var dictinary = new Dictionary<string, int>();
             var options = new List<string>
             {
                 question.Option1, question.Option2, question.Option3, question.Option4
@@ -143,12 +178,12 @@ namespace MillionaireGame.Controllers
             var percentageForAnswer = _random.Next(40, 101);
             var restPercentage = 100 - percentageForAnswer;
             int numberOfASymbol = 65;
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                var text = $"{(char) numberOfASymbol}: {options[i]}";
-                if (i == question.Answer-1)
+                var text = $"{(char)numberOfASymbol}: {options[i]}";
+                if (i == question.Answer - 1)
                 {
-                    dictinary.Add(text,percentageForAnswer);
+                    dictinary.Add(text, percentageForAnswer);
                 }
                 else if (i == 3)
                 {
@@ -162,7 +197,7 @@ namespace MillionaireGame.Controllers
                 }
                 numberOfASymbol++;
             }
-            return PartialView("AskAudiencePartial",dictinary);
+            return PartialView("AskAudiencePartial", dictinary);
         }
     }
 }

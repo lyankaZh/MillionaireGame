@@ -1,12 +1,10 @@
-﻿
-$("#hint50").on("click", fiftyHint);
-$("#hint50crossed").hide();
-
-$("#friendCall").on("click", friendCallHint);
+﻿$("#hint50crossed").hide();
 $("#friendCallCrossed").hide();
-
-$("#audienceAsk").on("click", AskAudienceHint);
 $("#audienceAskCrossed").hide();
+
+$("#hint50").on("click", fiftyHint);
+$("#friendCall").on("click", friendCallHint);
+$("#audienceAsk").on("click", AskAudienceHint);
 
 
 function fiftyHint() {
@@ -21,14 +19,27 @@ function fiftyHint() {
 
         success: function (result) {
             $("#question").html(result);
-            changeHint50Image();
+            $("#hint50").hide();
+            $("#hint50crossed").show();
             enableEvents();
         }
     });
 }
 
 function friendCallHint() {
-    
+    $.ajax({
+        type: "GET",
+        url: window.redirectToCallFriend,
+        contentType: "application/html; charset=utf-8",
+        data: { questionId: window.questionId },
+        datatype: "html",
+        success: function (result) {
+            $('#emailModalContent').html(result);
+            $('#emailModal').modal('show');
+            //$("#friendCall").hide();
+            //$("#friendCallCrossed").show();
+        }
+    });
 }
 
 function AskAudienceHint() {
@@ -47,13 +58,12 @@ function AskAudienceHint() {
     });
 }
 
-function changeHint50Image() {
-    $("#hint50").hide();
-    $("#hint50crossed").show();
-    //var image = $("#hint50");
-    //image.off("click", fiftyHint);
-    //image.attr("src", window.hint50CrossedImage);
-}
+//function changeHint50Image() {
+    
+//    //var image = $("#hint50");
+//    //image.off("click", fiftyHint);
+//    //image.attr("src", window.hint50CrossedImage);
+//}
 
 function enableEvents() {
     for (var i = 0; i < 4; i++) {

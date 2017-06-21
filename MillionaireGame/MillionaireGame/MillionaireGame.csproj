@@ -191,6 +191,7 @@
     <Compile Include="Helpers\ImageActionLinkHelper.cs" />
     <Compile Include="Helpers\IMessageSender.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,6 +208,7 @@
     <Content Include="Views\Game\EndGameView.cshtml" />
     <Content Include="Views\Game\QuestionView.cshtml" />
     <Content Include="Views\Game\AskAudiencePartial.cshtml" />
+    <Content Include="Views\Game\SendEmailPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -216,7 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MillionaireGame.DAL\MillionaireGame.DAL.csproj">
