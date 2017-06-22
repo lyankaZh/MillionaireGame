@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Dictionary<string, string>
+@{
     Layout = null;
     AjaxOptions ajaxOptions = new AjaxOptions
     {
@@ -18,72 +19,19 @@
 </head>
 <body>
 
-    <div>
-        <table>
-            <tr id="t15">
-                <td>15</td>
-                <td>1000000$</td>
-            </tr>
-            <tr id="t14">
-                <td>14</td>
-                <td>500000$</td>
-            </tr>
-            <tr id="t13">
-                <td>13</td>
-                <td>250000$</td>
-            </tr>
-            <tr id="t12">
-                <td>12</td>
-                <td>125000$</td>
-            </tr>
-            <tr id="t11">
-                <td>11</td>
-                <td>64000$</td>
-            </tr>
-            <tr id="t10">
-                <td>10</td>
-                <td>32000$</td>
-            </tr>
-            <tr id="t9">
-                <td>9</td>
-                <td>16000$</td>
-            </tr>
-            <tr id="t8">
-                <td>8</td>
-                <td>8000$</td>
-            </tr>
-            <tr id="t7">
-                <td>7</td>
-                <td>4000$</td>
-            </tr>
-            <tr id="t6">
-                <td>6</td>
-                <td>2000$</td>
-            </tr>
-            <tr id="t5">
-                <td>5</td>
-                <td>1000$</td>
-            </tr>
-            <tr id="t4">
-                <td>4</td>
-                <td>500$</td>
-            </tr>
-            <tr id="t3">
-                <td>3</td>
-                <td>300$</td>
-            </tr>
-            <tr id="t2">
-                <td>2</td>
-                <td>200$</td>
-            </tr>
-            <tr id="t1">
-                <td>1</td>
-                <td>100$</td>
-            </tr>
-        </table>
+    <table>
 
-    </div>
-<script src="~/Scripts/jquery-1.9.1.js"></script>
+        @foreach (KeyValuePair<string, string> entry in Model)
+        {
+            var tableId = "t" + entry.Key;
+            <tr id="@tableId">
+                <td>@entry.Key</td>
+                <td>@entry.Value$</td>
+            </tr>
+        }
+    </table>
+
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
     <div id="question">
         @Html.Action("NextQuestion")
     </div>
@@ -111,6 +59,7 @@
 
         <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png" />
 
+
     </div>
 
 
@@ -130,7 +79,7 @@
         </div>
     </div>
 
-   
+
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
 

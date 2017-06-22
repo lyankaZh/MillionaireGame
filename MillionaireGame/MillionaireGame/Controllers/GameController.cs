@@ -35,7 +35,8 @@ namespace MillionaireGame.Controllers
                 {
                     Session["QuestionNumber"] = 1;
                     Session["username"] = username;
-                    return View("StartGame");
+                    
+                    return View("StartGame", FormMoneyDictionary());
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
                 return View("Index");
@@ -44,8 +45,29 @@ namespace MillionaireGame.Controllers
             return View("Index");
         }
 
-
-        public ActionResult NextQuestion()
+        public Dictionary<string, string> FormMoneyDictionary()
+        {
+            var dictionary = new Dictionary<string, string>
+            {
+                {"15", "1000000"},
+                {"14", "500000"},
+                {"13", "250000"},
+                {"12", "125000"},
+                {"11", "64000"},
+                {"10", "32000"},
+                {"9", "16000"},
+                {"8", "8000"},
+                {"7", "4000"},
+                {"6", "2000"},
+                {"5", "1000"},
+                {"4", "500"},
+                {"3", "300"},
+                {"2", "200"},
+                {"1", "100"}
+            };
+            return dictionary;
+        }
+         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
             var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
@@ -77,7 +99,7 @@ namespace MillionaireGame.Controllers
 
         public ActionResult Victory()
         {
-            return View("Victory", 5);
+           return View("Victory");
         }
 
         public ActionResult Failure()

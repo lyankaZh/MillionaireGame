@@ -1,5 +1,4 @@
-﻿@model int
-@{
+﻿@{
     Layout = null;
 }
 
@@ -13,7 +12,9 @@
 <body>
 <div>
     Congratulations, @Session["username"]
+    Your have won 1 000 000$
     @Html.ActionLink("Play again", "Index", "Game", new { @class = "btn btn-primary" })
+
 </div>
 </body>
 </html>

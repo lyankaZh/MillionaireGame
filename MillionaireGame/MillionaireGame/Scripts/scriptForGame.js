@@ -7,6 +7,7 @@
 //}
 
 function checkAnswer(e) {
+    $("#takeMoney").off("click", AskAudienceHint);
     var selectedButton = e.target;
     $(selectedButton).css('background-color', 'blue');
     disableEvents();
@@ -15,7 +16,7 @@ function checkAnswer(e) {
             $(selectedButton).css('background-color', 'greenyellow');
             if (window.questionNumber === 3) {
                 setTimeout(function() {
-                        window.location.href = window.redirectToVictory;
+                        takeMoney();
                     },
                     500);
 
@@ -42,6 +43,20 @@ function checkAnswer(e) {
     },
         1000);
 }
+
+function enableEvents() {
+    for (var i = 0; i < 4; i++) {
+        var button = $("#" + i);
+        if (button.text() != "") {
+            $(button).on("click", checkAnswer);
+        }
+    }
+    $("#hint50").on("click", fiftyHint);
+    $("#friendCall").on("click", friendCallHint);
+    $("#audienceAsk").on("click", AskAudienceHint);
+    $("#takeMoney").on("click", takeMoney);
+}
+
 function disableEvents() {
     for (var i = 0; i < 4; i++) {
         $("#" + i).off("click");
@@ -50,10 +65,15 @@ function disableEvents() {
     $("#hint50").off("click", fiftyHint);
     $("#friendCall").off("click", friendCallHint);
     $("#audienceAsk").off("click", AskAudienceHint);
+
 }
 
 function redirectToFiftyFifty() {
     window.location.href = window.redirectToFiftyUrl;
+}
+
+function takeMoney() {
+    window.location.href = window.redirectToVictory;
 }
 
 //// Post to the provided URL with the specified parameters.

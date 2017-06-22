@@ -63,15 +63,3 @@ function AskAudienceHint() {
 //    //image.attr("src", window.hint50CrossedImage);
 //}
 
-function enableEvents() {
-    for (var i = 0; i < 4; i++) {
-        var button = $("#" + i);
-        if (button.text() != "") {
-            $(button).on("click", checkAnswer);
-        }
-    }
-    $("#hint50").on("click", fiftyHint);
-    $("#friendCall").on("click", friendCallHint);
-    $("#audienceAsk").on("click", AskAudienceHint);
-
-}
