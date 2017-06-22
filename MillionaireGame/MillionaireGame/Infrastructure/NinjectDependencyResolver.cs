@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using MillionaireGame.DAL.Repository;
-using MillionaireGame.Helpers;
 using Ninject;
 
 namespace MillionaireGame.Infrastructure
@@ -26,7 +25,6 @@ namespace MillionaireGame.Infrastructure
         private void AddBindings()
         {
             _kernel.Bind<IQuestionRepository>().To<QuestionRepository>();
-            _kernel.Bind<IMessageSender>().To<EmailSender>();
         }
     }
 }

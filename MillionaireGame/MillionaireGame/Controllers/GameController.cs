@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using MillionaireGame.DAL.Entities;
 using MillionaireGame.DAL.Repository;
-using MillionaireGame.Helpers;
 using MillionaireGame.Models;
 
 namespace MillionaireGame.Controllers
@@ -16,13 +14,11 @@ namespace MillionaireGame.Controllers
     public class GameController : Controller
     {
         private IQuestionRepository _repository;
-        private IMessageSender _messageSender;
         private Random _random = new Random();
 
-        public GameController(IQuestionRepository repository, IMessageSender sender)
+        public GameController(IQuestionRepository repository)
         {
             _repository = repository;
-            _messageSender = sender;
         }
 
         public ActionResult Index()
@@ -52,10 +48,6 @@ namespace MillionaireGame.Controllers
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
-            if (questionNumber == 15)
-            {
-                return View("EndGameView", 15);
-            }
             var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
             var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = GetQuestionModel(currentQuestion);
@@ -81,11 +73,17 @@ namespace MillionaireGame.Controllers
             return model;
         }
 
-        public ActionResult EndGame()
+
+
+        public ActionResult Victory()
         {
-            return View("EndGameView", 15);
+            return View("Victory", 5);
         }
 
+        public ActionResult Failure()
+        {
+            return View("Failure");
+        }
 
         public ActionResult FiftyFifty(int questionId)
         {
@@ -153,19 +151,6 @@ namespace MillionaireGame.Controllers
             messageText.Append($"D: {question.Option4}" + Environment.NewLine);
             return messageText.ToString();
         }
-
-        //public async Task<ActionResult> SendEmail()
-        //{
-        //    var message = new MailMessage();
-        //    message.To.Add(new MailAddress("ulyana.zhovtanetska@gmail.com"));
-        //    message.Subject = "Millionaire game";
-        //    message.Body = "Hello";
-        //    using (var smtp = new SmtpClient())
-        //    {
-        //        await smtp.SendMailAsync(message);
-        //        return RedirectToAction("EndGame");
-        //    }
-        //}
 
         public ActionResult AskAudience(int questionId)
         {

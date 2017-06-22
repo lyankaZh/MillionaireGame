@@ -13,16 +13,30 @@ function checkAnswer(e) {
     setTimeout(function () {
         if (selectedButton.innerText == window.correctText) {
             $(selectedButton).css('background-color', 'greenyellow');
-            $("#next_question").show();
-            //var newButton = $('<button>Next question</button>');
-            //$(newButton).click(function () {
-            //    //window.location.href = window.nextQuestionUrl;
-            //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
-            //});
-            //$("body").append(newButton);
+            if (window.questionNumber === 3) {
+                setTimeout(function() {
+                        window.location.href = window.redirectToVictory;
+                    },
+                    500);
+
+            } else {
+                $("#next_question").show();
+                //var newButton = $('<button>Next question</button>');
+                //$(newButton).click(function () {
+                //    
+                //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
+                //});
+                //$("body").append(newButton);     
+            }
+           
         } else {
             $('#' + window.correctButtonId).css("background-color", "greenyellow");
             $(selectedButton).css('background-color', 'red');
+
+            setTimeout(function () {
+                    window.location.href = window.redirectToFailure;
+                },
+                500);
         }
 
     },
@@ -32,6 +46,10 @@ function disableEvents() {
     for (var i = 0; i < 4; i++) {
         $("#" + i).off("click");
     }
+
+    $("#hint50").off("click", fiftyHint);
+    $("#friendCall").off("click", friendCallHint);
+    $("#audienceAsk").off("click", AskAudienceHint);
 }
 
 function redirectToFiftyFifty() {

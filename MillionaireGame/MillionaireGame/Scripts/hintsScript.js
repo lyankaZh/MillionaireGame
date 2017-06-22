@@ -2,9 +2,7 @@
 $("#friendCallCrossed").hide();
 $("#audienceAskCrossed").hide();
 
-$("#hint50").on("click", fiftyHint);
-$("#friendCall").on("click", friendCallHint);
-$("#audienceAsk").on("click", AskAudienceHint);
+
 
 
 function fiftyHint() {
@@ -72,4 +70,8 @@ function enableEvents() {
             $(button).on("click", checkAnswer);
         }
     }
+    $("#hint50").on("click", fiftyHint);
+    $("#friendCall").on("click", friendCallHint);
+    $("#audienceAsk").on("click", AskAudienceHint);
+
 }

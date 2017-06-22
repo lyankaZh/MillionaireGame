@@ -1,6 +1,4 @@
-﻿@using MillionaireGame.Helpers
-@*@model MillionaireGame.Models.QuestionModel*@
-@{
+﻿@{
     Layout = null;
     AjaxOptions ajaxOptions = new AjaxOptions
     {
@@ -87,7 +85,7 @@
     </div>
 <script src="~/Scripts/jquery-1.9.1.js"></script>
     <div id="question">
-        @Html.Action("NextQuestion", new { questionNumber = 0 })
+        @Html.Action("NextQuestion")
     </div>
 
     <div>
@@ -145,6 +143,8 @@
         var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
         var redirectToAskAudience = '@Url.Action("AskAudience", "Game")';
         var redirectToCallFriend = '@Url.Action("ShowEmailView", "Game")';
+        var redirectToVictory = '@Url.Action("Victory", "Game")';
+        var redirectToFailure = '@Url.Action("Failure", "Game")';
     </script>
 
     <script src="~/Scripts/hintsScript.js"></script>
