@@ -76,3 +76,38 @@ article {
     padding: 0px !important;
     border: none !important;
 }
+
+
+#emailModalContent {
+    background: url('../Content/Images/envelope.jpg');
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    background-size: cover;
+    border-radius: 5px;
+    height: 340px;
+}
+
+#paragraph {
+    color: red;
+}
+
+.form-control {
+    width: 50% !important;
+}
+
+#style-for-email {
+    margin-top: 9em;
+    margin-left: 11em;
+    position: absolute;
+}
+
+
+.email-confirm-text {
+    position: absolute;
+    margin-top: 11em;
+    margin-left: 5em;
+}
+
+.modal-header .close {
+    margin-right: -4px !important;
+}

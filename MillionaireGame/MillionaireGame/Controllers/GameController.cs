@@ -35,7 +35,7 @@ namespace MillionaireGame.Controllers
                 {
                     Session["QuestionNumber"] = 1;
                     Session["username"] = username;
-                    
+
                     return View("StartGame", FormMoneyDictionary());
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
@@ -49,17 +49,17 @@ namespace MillionaireGame.Controllers
         {
             var dictionary = new Dictionary<string, string>
             {
-                {"15", "1000000"},
-                {"14", "500000"},
-                {"13", "250000"},
-                {"12", "125000"},
-                {"11", "64000"},
-                {"10", "32000"},
-                {"9", "16000"},
-                {"8", "8000"},
-                {"7", "4000"},
-                {"6", "2000"},
-                {"5", "1000"},
+                {"15", "1 000 000"},
+                {"14", "500 000"},
+                {"13", "250 000"},
+                {"12", "125 000"},
+                {"11", "64 000"},
+                {"10", "32 000"},
+                {"9", "16 000"},
+                {"8", "8 000"},
+                {"7", "4 000"},
+                {"6", "2 000"},
+                {"5", "1 000"},
                 {"4", "500"},
                 {"3", "300"},
                 {"2", "200"},
@@ -67,7 +67,7 @@ namespace MillionaireGame.Controllers
             };
             return dictionary;
         }
-         public ActionResult NextQuestion()
+        public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
             var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
@@ -99,7 +99,7 @@ namespace MillionaireGame.Controllers
 
         public ActionResult Victory()
         {
-           return View("Victory");
+            return View("Victory");
         }
 
         public ActionResult Failure()
@@ -141,23 +141,20 @@ namespace MillionaireGame.Controllers
 
         public async Task<ActionResult> SendEmailToFriend(MessageModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var question = _repository.GetQuestionById(model.QuestionId);
-                var messageText = FormTextForMessage(question);
 
-                var message = new MailMessage();
-                message.To.Add(new MailAddress(model.Email));
-                message.Subject = "Millionaire game";
-                message.Body = messageText;
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(message);
-                    return new HttpStatusCodeResult(200);
-                }
-                
+            var question = _repository.GetQuestionById(model.QuestionId);
+            var messageText = FormTextForMessage(question);
+
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(model.Email));
+            message.Subject = "Millionaire game";
+            message.Body = messageText;
+            using (var smtp = new SmtpClient())
+            {
+                await smtp.SendMailAsync(message);
+                return new HttpStatusCodeResult(200);
             }
-            return new HttpStatusCodeResult(400, "Invalid email address");
+
         }
 
         public string FormTextForMessage(Question question)
