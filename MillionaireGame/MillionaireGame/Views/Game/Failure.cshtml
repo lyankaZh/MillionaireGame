@@ -9,11 +9,24 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Styles/homePageStyles.css" rel="stylesheet" />
+    <style>
+        .message {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            color: white !important;
+            font-size: 50px;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <h1>You have lost!</h1>
-    @Html.ActionLink("Try again","Index","Game", new {@class="btn btn-primary"})
+    <div class="message">
+        <h1>You have lost!</h1>
+        @Html.ActionLink("Try again", "Index", "Game", new { @class = "btn btn-primary" })
 </div>
 </body>
 </html>
