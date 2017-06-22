@@ -1,9 +1,62 @@
 ﻿body {
     background: url('../Content/Images/background.jpg') no-repeat center center fixed;
-    
     color: white !important;
+    box-sizing: border-box;
 }
 
-.main-text {
-    color: black;
+.question{
+    color: white;
+}
+
+button {
+    width: 49%;
+    background-color: blue;
+    border: 1px solid black
+}
+
+button:hover {
+    background-color: #3030ae;
+}
+
+img {
+    width: 20%;
+}
+
+div.container {
+    width: 100%;
+    padding-top: 3em;
+    font-family: cursive;
+}
+
+nav {
+    text-align: center;
+    width: 300px;
+    float: left;
+    margin: 0;
+}
+.hints {
+    width: 100%;
+    margin-bottom: 1em;
+}
+table {
+    text-align: center;
+    width: 100%;
+}
+td, th {
+    padding-left: 33px !important;
+}
+article {
+    font-size: 170%;
+    text-align: center;
+    overflow: hidden;
+
+   
+}
+
+#next_question {
+    display: none;
+     width: 200px; 
+     margin-top: 30px;   
+     background-color: transparent;
+    border: none;
 }

@@ -18,84 +18,94 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-
-    <table>
-
-        @foreach (KeyValuePair<string, string> entry in Model)
-        {
-            var tableId = "t" + entry.Key;
-            <tr id="@tableId">
-                <td>@entry.Key</td>
-                <td>@entry.Value$</td>
-            </tr>
-        }
-    </table>
+    
+<div class="container">
 
     <script src="~/Scripts/jquery-1.9.1.js"></script>
-    <div id="question">
-        @Html.Action("NextQuestion")
-    </div>
+    <nav>
+       <div class="hints">
+            <img id="hint50" alt="50/50" src="~/Content/Images/HintsImages/hint50.png"/>
 
-    <div>
-        @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
-        {
-            <button type="submit" style="display:none;" id="next_question">Next question</button>
-        }
-    </div>
+            <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png"/>
 
-    <div>
+            <img id="friendCall" src="~/Content/Images/HintsImages/hintPhone.png"/>
+
+            <img id="friendCallCrossed" src="~/Content/Images/HintsImages/hintPhoneCrossed.png"/>
+
+            <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png"/>
+
+            <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png"/>
+        </div>
+        <table>
+            @foreach (KeyValuePair<string, string> entry in Model)
+            {
+                var tableId = "t" + entry.Key;
+                <tr id="@tableId">
+                    <td>@entry.Key</td>
+                    <td>@entry.Value$</td>
+                </tr>
+            }
+        </table>     
+    </nav>
+
+    <article>
+        <div id="question">
+            @Html.Action("NextQuestion")
+        </div>
+        <div>
+            @using (Ajax.BeginForm("NextQuestion", ajaxOptions))
+            {
+                <button type="submit" id="next_question">Next question</button>
+            }
+        </div>   
+    </article>
 
 
-
-        <img id="hint50" alt="50/50" src="~/Content/Images/HintsImages/hint50.png" />
-
-        <img id="hint50crossed" src="~/Content/Images/HintsImages/hint50Crossed.png" />
-
-        <img id="friendCall" src="~/Content/Images/HintsImages/hintPhone.png" />
-
-        <img id="friendCallCrossed" src="~/Content/Images/HintsImages/hintPhoneCrossed.png" />
-
-        <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png" />
-
-        <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png" />
+</div>
+@*<article>
+     
+</article>
 
 
-    </div>
+<div class="left">
+   
+  
+</div>*@
 
 
-    <div id='audienceModal' class='modal'>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div id='audienceModalContent' style="color: black !important"></div>
-            </div>
+<div id='audienceModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='audienceModalContent' style="color: black !important"></div>
         </div>
     </div>
+</div>
 
-    <div id='emailModal' class='modal'>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div id='emailModalContent' style="color: black !important"></div>
-            </div>
+<div id='emailModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='emailModalContent' style="color: black !important"></div>
         </div>
     </div>
+</div>
 
 
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        $(document).ready(function () {
-            enableEvents();
-        });
+    $(document).ready(function() {
+        enableEvents();
+    });
 
-        var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
-        var redirectToAskAudience = '@Url.Action("AskAudience", "Game")';
-        var redirectToCallFriend = '@Url.Action("ShowEmailView", "Game")';
-        var redirectToVictory = '@Url.Action("Victory", "Game")';
-        var redirectToFailure = '@Url.Action("Failure", "Game")';
-    </script>
+    var redirectToFiftyUrl = '@Url.Action("FiftyFifty", "Game")';
+    var redirectToAskAudience = '@Url.Action("AskAudience", "Game")';
+    var redirectToCallFriend = '@Url.Action("ShowEmailView", "Game")';
+    var redirectToVictory = '@Url.Action("Victory", "Game")';
+    var redirectToFailure = '@Url.Action("Failure", "Game")';
+</script>
 
-    <script src="~/Scripts/hintsScript.js"></script>
+<script src="~/Scripts/hintsScript.js"></script>
 </body>
 </html>

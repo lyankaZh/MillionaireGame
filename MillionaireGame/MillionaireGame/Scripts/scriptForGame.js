@@ -6,13 +6,22 @@
 //    }
 //}
 
+
 function checkAnswer(e) {
-    $("#takeMoney").off("click", AskAudienceHint);
-    var selectedButton = e.target;
-    $(selectedButton).css('background-color', 'blue');
+    //$("#takeMoney").off("click", AskAudienceHint);
+    var selectedItem = e.target.tagName;
+    var selectedButton;
+    if (selectedItem == "SPAN") {
+        selectedButton = e.target.parentElement;
+    } else {
+        selectedButton = e.target;
+    }
+    
+    var id = $(selectedButton).attr("id");
+    $(selectedButton).css('background-color', 'orange');
     disableEvents();
     setTimeout(function () {
-        if (selectedButton.innerText == window.correctText) {
+        if (($("#answer"+id)).text() == window.correctText) {
             $(selectedButton).css('background-color', 'greenyellow');
             if (window.questionNumber === 3) {
                 setTimeout(function() {
@@ -47,7 +56,7 @@ function checkAnswer(e) {
 function enableEvents() {
     for (var i = 0; i < 4; i++) {
         var button = $("#" + i);
-        if (button.text() != "") {
+        if (($("#answer" + i)).text() != "") {
             $(button).on("click", checkAnswer);
         }
     }
