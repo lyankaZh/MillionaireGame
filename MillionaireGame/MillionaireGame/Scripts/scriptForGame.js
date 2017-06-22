@@ -54,7 +54,6 @@ function enableEvents() {
     $("#hint50").on("click", fiftyHint);
     $("#friendCall").on("click", friendCallHint);
     $("#audienceAsk").on("click", AskAudienceHint);
-    $("#takeMoney").on("click", takeMoney);
 }
 
 function disableEvents() {

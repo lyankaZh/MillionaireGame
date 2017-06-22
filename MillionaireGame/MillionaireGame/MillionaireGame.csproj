@@ -155,6 +155,7 @@
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\millionaire.jpg" />
     <Content Include="Content\Images\Millionaire_Background.png" />
+    <Content Include="Content\Images\moneyBackground.jpg" />
     <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Infrastructure\fonts\glyphicons-halflings-regular.woff2" />
@@ -177,6 +178,7 @@
     <Content Include="Scripts\scriptForGame.js" />
     <Content Include="Styles\gameStyles.css" />
     <Content Include="Styles\homePageStyles.css" />
+    <Content Include="Styles\victoryStyles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
