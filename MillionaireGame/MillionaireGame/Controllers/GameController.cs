@@ -5,13 +5,16 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using MillionaireGame.DAL.Entities;
 using MillionaireGame.DAL.Repository;
 using MillionaireGame.Models;
 using MillionaireGame.BLL;
+using MillionaireGame.Infrastructure.Filters;
 
 namespace MillionaireGame.Controllers
 {
+    [ExceptionLogger]
     public class GameController : Controller
     {
         private IQuestionRepository _repository;
@@ -26,9 +29,8 @@ namespace MillionaireGame.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            return View("Index");    
         }
-
 
         public ActionResult StartGame(string username)
         {

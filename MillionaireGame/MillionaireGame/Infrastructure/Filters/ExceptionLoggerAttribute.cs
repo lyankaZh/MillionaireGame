@@ -5,27 +5,36 @@ using MillionaireGame.DAL.Entities;
 
 namespace MillionaireGame.Infrastructure.Filters
 {
-    //public class ExceptionLoggerAttribute : FilterAttribute, IExceptionFilter
-    //{
-    //    public void OnException(ExceptionContext filterContext)
-    //    {
-    //        ExceptionDetail exceptionDetail = new ExceptionDetail()
-    //        {
-    //            ExceptionMessage = filterContext.Exception.Message,
-    //            StackTrace = filterContext.Exception.StackTrace,
-    //            ControllerName = filterContext.RouteData.Values["controller"].ToString(),
-    //            ActionName = filterContext.RouteData.Values["action"].ToString(),
-    //            Date = DateTime.Now
-    //        };
+    public class ExceptionLoggerAttribute : FilterAttribute, IExceptionFilter
+    {
+        public void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+            ExceptionDetail exceptionDetail = new ExceptionDetail()
+            {
+                ExceptionMessage = filterContext.Exception.Message,
+                StackTrace = filterContext.Exception.StackTrace,
+                ControllerName = filterContext.RouteData.Values["controller"].ToString(),
+                ActionName = filterContext.RouteData.Values["action"].ToString(),
+                Date = DateTime.Now
+            };
 
-    //        using (MillionaireContext db = new MillionaireContext())
-    //        {
-    //            db.ExceptionDetails.Add(exceptionDetail);
-    //            db.SaveChanges();
-    //        }
+            using (MillionaireContext db = new MillionaireContext())
+            {
+                db.ExceptionDetails.Add(exceptionDetail);
+                db.SaveChanges();
+            }
 
-    //        filterContext.ExceptionHandled = true;
-    //    }
-    //}
+            filterContext.ExceptionHandled = true;
+            
+            filterContext.Result = new ViewResult
+            {
+                ViewName = "ErrorView"
+            };
+        }
+    }
 
 }
