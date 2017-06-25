@@ -1,0 +1,5 @@
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\MillionaireGame.BLL.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\MillionaireGame.BLL.pdb
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.csprojResolveAssemblyReference.cache
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.pdb

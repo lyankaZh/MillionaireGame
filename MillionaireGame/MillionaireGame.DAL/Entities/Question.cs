@@ -17,7 +17,6 @@ namespace MillionaireGame.DAL.Entities
         public string Option4 { get; set; }
         [Range(1, 4, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public int Answer { get; set; }
-        [Range(10, 1000, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
-        public int Difficulty { get; set; }
+        public virtual Win Difficulty { get; set; }
     }
 }

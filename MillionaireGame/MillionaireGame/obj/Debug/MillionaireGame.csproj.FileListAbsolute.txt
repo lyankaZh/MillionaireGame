@@ -57,3 +57,7 @@ E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\bin\Syst
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\obj\Debug\MillionaireGame.csprojResolveAssemblyReference.cache
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\obj\Debug\MillionaireGame.dll
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\obj\Debug\MillionaireGame.pdb
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\bin\log4net.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\bin\MillionaireGame.BLL.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\bin\MillionaireGame.BLL.pdb
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame\bin\log4net.xml

@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ExceptionDetail.cs" />
+    <Compile Include="Entities\Win.cs" />
     <Compile Include="MillionaireContext.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

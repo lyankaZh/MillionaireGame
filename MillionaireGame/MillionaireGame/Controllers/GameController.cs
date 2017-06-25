@@ -8,17 +8,20 @@ using System.Web.Mvc;
 using MillionaireGame.DAL.Entities;
 using MillionaireGame.DAL.Repository;
 using MillionaireGame.Models;
+using MillionaireGame.BLL;
 
 namespace MillionaireGame.Controllers
 {
     public class GameController : Controller
     {
         private IQuestionRepository _repository;
+        private IGameService _gameService;
         private Random _random = new Random();
 
-        public GameController(IQuestionRepository repository)
+        public GameController(IQuestionRepository repository, IGameService gameService)
         {
             _repository = repository;
+            _gameService = gameService;
         }
 
         public ActionResult Index()
@@ -35,7 +38,6 @@ namespace MillionaireGame.Controllers
                 {
                     Session["QuestionNumber"] = 1;
                     Session["username"] = username;
-
                     return View("StartGame", FormMoneyDictionary());
                 }
                 ModelState.AddModelError("usernameError", "Please, input username");
@@ -70,7 +72,7 @@ namespace MillionaireGame.Controllers
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
-            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty == questionNumber).ToList();
+            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty.Level == questionNumber).ToList();
             var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = GetQuestionModel(currentQuestion);
             Session["QuestionNumber"] = questionNumber + 1;
@@ -91,12 +93,10 @@ namespace MillionaireGame.Controllers
             model.Options.Add(question.Option4);
             model.AnswerId = question.Answer - 1;
             model.AnswerText = model.Options[question.Answer - 1];
-            model.QuestionNumber = question.Difficulty;
+            model.QuestionNumber = question.Difficulty.Level;
             return model;
         }
-
-
-
+        
         public ActionResult Victory()
         {
             return View("Victory");
@@ -141,7 +141,6 @@ namespace MillionaireGame.Controllers
 
         public async Task<ActionResult> SendEmailToFriend(MessageModel model)
         {
-
             var question = _repository.GetQuestionById(model.QuestionId);
             var messageText = FormTextForMessage(question);
 
@@ -154,7 +153,6 @@ namespace MillionaireGame.Controllers
                 await smtp.SendMailAsync(message);
                 return new HttpStatusCodeResult(200);
             }
-
         }
 
         public string FormTextForMessage(Question question)
