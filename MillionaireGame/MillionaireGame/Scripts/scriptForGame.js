@@ -1,62 +1,79 @@
-﻿
-//for (var i = 0; i < 4; i++) {
-//    var button = $("#" + i);
-//    if (button.text() != "") {
-//        $(button).on("click", checkAnswer);
-//    }
-//}
-
+﻿//$("#takeMoney").off("click", AskAudienceHint);
 
 function checkAnswer(e) {
-    //$("#takeMoney").off("click", AskAudienceHint);
-    var selectedItem = e.target.tagName;
-    var selectedButton;
-    if (selectedItem == "SPAN") {
-        selectedButton = e.target.parentElement;
-    } else {
-        selectedButton = e.target;
-    }
-    
-    var id = $(selectedButton).attr("id");
-    $(selectedButton).css('background-color', 'orange');
+    var selectedButton = e.target;
+    var selectedButtonId = $(selectedButton).attr("id");
     disableEvents();
-    setTimeout(function () {
-        if (($("#answer"+id)).text() == window.correctText) {
-            $(selectedButton).css('background-color', 'greenyellow');
-            if (window.questionNumber === 3) {
-                setTimeout(function() {
-                        takeMoney();
-                    },
-                    500);
+    $(selectedButton).css('background-color', 'orange');
+    setTimeout(function() {
+            $.ajax({
+                url: window.redirectToCheckAnswerUrl,
 
-            } else {
-                $("#next_question").show();
-                //var newButton = $('<button>Next question</button>');
-                //$(newButton).click(function () {
-                //    
-                //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
-                //});
-                //$("body").append(newButton);     
-            }
-           
-        } else {
-            $('#' + window.correctButtonId).css("background-color", "greenyellow");
-            $(selectedButton).css('background-color', 'red');
+                data: { questionId: window.questionId, selectedOption: selectedButtonId },
 
-            setTimeout(function () {
-                    window.location.href = window.redirectToFailure;
-                },
-                500);
-        }
-
-    },
+                success: function (result) {
+                    if (selectedButtonId == result) {
+                        $(selectedButton).css('background-color', 'greenyellow');
+                        if (window.questionNumber === 3) {
+                            setTimeout(function () { takeMoney(); }, 500);
+                        } else {
+                            $("#next_question").show();
+                        }
+                    } else {
+                        $('#' + result).css("background-color", "greenyellow");
+                        $(selectedButton).css('background-color', 'red');
+                        setTimeout(function () {
+                            window.location.href = window.redirectToFailure;
+                        }, 500);
+                    }
+                }
+            });
+        },
         1000);
+  
+    //var selectedItem = e.target.tagName;
+    //var selectedButton;
+    //if (selectedItem == "SPAN") {
+    //    selectedButton = e.target.parentElement;
+    //} else {
+    //    selectedButton = e.target;
+    //}
+
+    //var id = $(selectedButton).attr("id");
+    //$(selectedButton).css('background-color', 'orange');
+    //disableEvents();
+    //setTimeout(function () {
+    //    if (($("#option" + id)).text() == window.correctText) {
+
+    //        $(selectedButton).css('background-color', 'greenyellow');
+
+    //        if (window.questionNumber === 3) {
+    //            setTimeout(function() {takeMoney();}, 500);
+    //        } else {
+    //            $("#next_question").show();
+    //            //var newButton = $('<button>Next question</button>');
+    //            //$(newButton).click(function () {
+    //            //    
+    //            //    post(window.nextQuestionUrl, { questionNumber: window.hightlightedTableIndex });
+    //            //});
+    //            //$("body").append(newButton);     
+    //        }
+
+    //    } else {
+    //        $('#' + window.correctButtonId).css("background-color", "greenyellow");
+    //        $(selectedButton).css('background-color', 'red');
+
+    //        setTimeout(function () {
+    //                window.location.href = window.redirectToFailure;},500);
+    //    }
+    //},
+    //    1000);
 }
 
 function enableEvents() {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 1; i <= 4; i++) {
         var button = $("#" + i);
-        if (($("#answer" + i)).text() != "") {
+        if (button.text() != "") {
             $(button).on("click", checkAnswer);
         }
     }
@@ -66,7 +83,7 @@ function enableEvents() {
 }
 
 function disableEvents() {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 1; i <= 4; i++) {
         $("#" + i).off("click");
     }
 
@@ -83,29 +100,3 @@ function redirectToFiftyFifty() {
 function takeMoney() {
     window.location.href = window.redirectToVictory;
 }
-
-//// Post to the provided URL with the specified parameters.
-//function post(path, parameters) {
-//    debugger;
-//    var form = $('<form></form>');
-
-//    form.attr("method", "post");
-//    form.attr("action", path);
-
-//    $.each(parameters, function (key, value) {
-//        var field = $('<input></input>');
-
-//        field.attr("type", "hidden");
-//        field.attr("name", key);
-//        field.attr("value", value);
-
-//        form.append(field);
-//    });
-
-//    // The form needs to be a part of the document in
-//    // order for us to be able to submit it.
-//    $(document.body).append(form);
-//    form.submit();
-//}
-
-

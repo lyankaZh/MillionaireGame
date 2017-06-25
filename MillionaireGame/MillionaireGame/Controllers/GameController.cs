@@ -71,6 +71,7 @@ namespace MillionaireGame.Controllers
             };
             return dictionary;
         }
+
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
@@ -78,7 +79,16 @@ namespace MillionaireGame.Controllers
             var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = GetQuestionModel(currentQuestion);
             Session["QuestionNumber"] = questionNumber + 1;
+
             return PartialView("QuestionView", model);
+        }
+
+
+        public int CheckAnswer(int questionId, int selectedOption)
+        {
+            var question = _repository.GetQuestionById(questionId);
+            //log
+            return question.Answer;
         }
 
         public QuestionModel GetQuestionModel(Question question)
@@ -93,9 +103,8 @@ namespace MillionaireGame.Controllers
             model.Options.Add(question.Option2);
             model.Options.Add(question.Option3);
             model.Options.Add(question.Option4);
-            model.AnswerId = question.Answer - 1;
-            model.AnswerText = model.Options[question.Answer - 1];
             model.QuestionNumber = question.Difficulty.Level;
+
             return model;
         }
         
@@ -118,7 +127,7 @@ namespace MillionaireGame.Controllers
             var randomList = new List<int>();
             for (int i = 0; i < 4; i++)
             {
-                if (i != model.AnswerId)
+                if (i != question.Answer-1)
                 {
                     randomList.Add(i);
                 }
@@ -138,6 +147,7 @@ namespace MillionaireGame.Controllers
             {
                 QuestionId = questionId
             };
+
             return View("SendEmailPartial", model);
         }
 

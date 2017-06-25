@@ -5,26 +5,69 @@
         Question #@Model.QuestionNumber
         @Model.QuestionText
     </div>
+
+
     <div>
-        <button id="0">A:<span id="answer0">@Model.Options[0]</span></button>
-        <button id="1">B:<span id="answer1">@Model.Options[1]</span></button>
-        
+        @if (Model.Options[0] == "")
+            {
+            <button id="1" style="visibility: hidden;"></button>
+        }
+        else
+        {
+            <button id="1">A: @Model.Options[0]</button>
+        }
+
+        @if (Model.Options[1] == "")
+            {
+            <button id="2" style="visibility: hidden"></button>
+        }
+        else
+        {
+            <button id="2">B: @Model.Options[1]</button>
+        }
     </div>
-   
+
     <div>
-        <button id="2">C:<span id="answer2">@Model.Options[2]</span></button>
-        <button id="3">D:<span id="answer3">@Model.Options[3]</span></button>
+        @if (Model.Options[2] == "")
+        {
+            <button id="3" style="visibility: hidden"></button>
+        }
+        else
+        {
+            <button id="3">C: @Model.Options[2]</button>
+        }
+
+        @if (Model.Options[3] == "")
+        {
+            <button id="4" style="visibility: hidden"></button>
+        }
+        else
+        {
+            <button id="4">D: @Model.Options[3]</button>
+        }
     </div>
-   
+
+
+
+    @*<div>
+            <button id="1">A: @Model.Options[0]</button>
+            <button id="2">B: @Model.Options[1]</button>
+        </div>
+
+        <div>
+            <button id="3">C:@Model.Options[2]</button>
+            <button id="4">D:@Model.Options[3]</button>
+        </div>*@
+
 </div>
 
 <script type="text/javascript">
     $("#next_question").hide();
+
     $("#t" + @Model.QuestionNumber).css({ "background-color": "white", "color": "black" });
     var index = @Model.QuestionNumber - 1;
     $("#t" + index).css({ "background-color": "transparent", "color": "white" });
-    var correctText = '@Model.AnswerText';
-    var correctButtonId = '@Model.AnswerId';
+
     var questionId = @Model.QuestionId;
     var questionNumber = @Model.QuestionNumber;
 </script>

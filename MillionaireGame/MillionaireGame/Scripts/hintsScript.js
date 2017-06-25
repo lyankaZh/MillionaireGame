@@ -2,9 +2,6 @@
 $("#friendCallCrossed").hide();
 $("#audienceAskCrossed").hide();
 
-
-
-
 function fiftyHint() {
     $.ajax({
         url: window.redirectToFiftyUrl,

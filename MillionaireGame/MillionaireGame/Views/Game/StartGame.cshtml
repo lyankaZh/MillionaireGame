@@ -34,7 +34,8 @@
 
             <img id="audienceAsk" src="~/Content/Images/HintsImages/hintAsk.png"/>
 
-            <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png"/>
+           <img id="audienceAskCrossed" src="~/Content/Images/HintsImages/hintAskCrossed.png"/>
+
         </div>
         <table>
             @foreach (KeyValuePair<string, string> entry in Model)
@@ -62,16 +63,6 @@
 
 
 </div>
-@*<article>
-     
-</article>
-
-
-<div class="left">
-   
-  
-</div>*@
-
 
 <div id='audienceModal' class='modal'>
     <div class="modal-dialog">
@@ -95,6 +86,7 @@
 
 <script type="text/javascript">
 
+
     $(document).ready(function() {
         enableEvents();
     });
@@ -104,6 +96,8 @@
     var redirectToCallFriend = '@Url.Action("ShowEmailView", "Game")';
     var redirectToVictory = '@Url.Action("Victory", "Game")';
     var redirectToFailure = '@Url.Action("Failure", "Game")';
+
+    var redirectToCheckAnswerUrl = '@Url.Action("CheckAnswer", "Game")';
 </script>
 
 <script src="~/Scripts/hintsScript.js"></script>
