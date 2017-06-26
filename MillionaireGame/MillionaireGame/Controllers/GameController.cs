@@ -29,7 +29,7 @@ namespace MillionaireGame.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");    
+            return View("Index");
         }
 
         public ActionResult StartGame(string username)
@@ -106,17 +106,17 @@ namespace MillionaireGame.Controllers
                 Options = new List<string>(),
                 QuestionId = question.QuestionId
             };
-          
-                model.Options.Add(question.Option1);
-                model.Options.Add(question.Option2);
-                model.Options.Add(question.Option3);
-                model.Options.Add(question.Option4);
-            
+
+            model.Options.Add(question.Option1);
+            model.Options.Add(question.Option2);
+            model.Options.Add(question.Option3);
+            model.Options.Add(question.Option4);
+
             model.QuestionNumber = question.Difficulty.Level;
 
             return model;
         }
-        
+
         public ActionResult Victory()
         {
             return View("Victory");
@@ -132,14 +132,14 @@ namespace MillionaireGame.Controllers
             var question = _questionRepository.GetQuestionById(questionId);
 
             QuestionModel model = GetQuestionModel(question);
-           
+
             var allAnswersForQuestion = _questionRepository.GetRecords().ToList().Where(x => x.Question == question && x.Answer != question.Answer).ToList();
             if (allAnswersForQuestion.Any())
             {
                 var groupedRecords = from record in allAnswersForQuestion
-                    group record.Question by record.Answer
+                                     group record.Question by record.Answer
                     into g
-                    select new { Answer = g.Key, AmountOfRecords = g.Count() };
+                                     select new { Answer = g.Key, AmountOfRecords = g.Count() };
                 var mostPopularAnswer = groupedRecords.OrderByDescending(x => x.AmountOfRecords).First().Answer;
 
                 for (int i = 0; i < 4; i++)
@@ -149,7 +149,7 @@ namespace MillionaireGame.Controllers
                         model.Options[i] = "";
                     }
                 }
-                
+
             }
             else
             {
@@ -169,6 +169,71 @@ namespace MillionaireGame.Controllers
             }
 
             return PartialView("QuestionView", model);
+        }
+
+        public ActionResult AskAudience(int questionId)
+        {
+            var question = _questionRepository.GetQuestionById(questionId);
+            var allAnswersForQuestion = _questionRepository.GetRecords().ToList().Where(x => x.Question == question).ToList();
+
+            var dictinary = new Dictionary<string, int>();
+            var options = new List<string>
+            {
+                question.Option1, question.Option2, question.Option3, question.Option4
+            };
+
+            int numberOfASymbol = 65;
+
+            if (allAnswersForQuestion.Any())
+            {
+                var groupedRecords = (from record in allAnswersForQuestion
+                                      group record.Question by record.Answer
+                    into g
+                                      select new { Answer = g.Key, AmountOfRecords = g.Count() }).ToList();
+
+                for (int i = 1; i <= 4; i++)
+                {
+                    if (!groupedRecords.Exists(x => x.Answer == i))
+                    {
+                        groupedRecords.Add(new { Answer = i, AmountOfRecords = 0 });
+                    }
+                }
+
+                var totalAmountOfRecords = allAnswersForQuestion.Count;
+
+                foreach (var element in groupedRecords.OrderBy(x => x.Answer))
+                {
+                    double percentage = (double)element.AmountOfRecords / totalAmountOfRecords * 100.0;
+                    dictinary.Add($"{(char)numberOfASymbol}: {options[element.Answer - 1]}", (int)percentage);
+                }
+            }
+            else
+            {
+                var percentageForAnswer = _random.Next(40, 101);
+                var restPercentage = 100 - percentageForAnswer;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    var text = $"{(char)numberOfASymbol}: {options[i]}";
+                    if (i == question.Answer - 1)
+                    {
+                        dictinary.Add(text, percentageForAnswer);
+                    }
+                    else if (i == 3)
+                    {
+                        dictinary.Add(text, restPercentage);
+                    }
+                    else
+                    {
+                        var currentPercentage = _random.Next(0, restPercentage);
+                        dictinary.Add(text, currentPercentage);
+                        restPercentage -= currentPercentage;
+                    }
+                    numberOfASymbol++;
+                }
+            }
+
+            return PartialView("AskAudiencePartial", dictinary);
         }
 
         public ActionResult ShowEmailView(int questionId)
@@ -211,37 +276,6 @@ namespace MillionaireGame.Controllers
             return messageText.ToString();
         }
 
-        public ActionResult AskAudience(int questionId)
-        {
-            var question = _questionRepository.GetQuestionById(questionId);
-            var dictinary = new Dictionary<string, int>();
-            var options = new List<string>
-            {
-                question.Option1, question.Option2, question.Option3, question.Option4
-            };
-            var percentageForAnswer = _random.Next(40, 101);
-            var restPercentage = 100 - percentageForAnswer;
-            int numberOfASymbol = 65;
-            for (int i = 0; i < 4; i++)
-            {
-                var text = $"{(char)numberOfASymbol}: {options[i]}";
-                if (i == question.Answer - 1)
-                {
-                    dictinary.Add(text, percentageForAnswer);
-                }
-                else if (i == 3)
-                {
-                    dictinary.Add(text, restPercentage);
-                }
-                else
-                {
-                    var currentPercentage = _random.Next(0, restPercentage);
-                    dictinary.Add(text, currentPercentage);
-                    restPercentage -= currentPercentage;
-                }
-                numberOfASymbol++;
-            }
-            return PartialView("AskAudiencePartial", dictinary);
-        }
+
     }
 }
