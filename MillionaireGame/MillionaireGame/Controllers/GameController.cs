@@ -17,19 +17,18 @@ namespace MillionaireGame.Controllers
     [ExceptionLogger]
     public class GameController : Controller
     {
-        private IQuestionRepository _repository;
+        private IQuestionRepository _questionRepository;
         private IGameService _gameService;
         private Random _random = new Random();
 
-        public GameController(IQuestionRepository repository, IGameService gameService)
+        public GameController(IQuestionRepository questionRepository, IGameService gameService)
         {
-            _repository = repository;
+            _questionRepository = questionRepository;
             _gameService = gameService;
         }
 
         public ActionResult Index()
         {
-            throw new ArgumentException();
             return View("Index");    
         }
 
@@ -76,7 +75,7 @@ namespace MillionaireGame.Controllers
         public ActionResult NextQuestion()
         {
             int questionNumber = (int)Session["QuestionNumber"];
-            var allQuestionsFromLevel = _repository.GetQuestions().Where(x => x.Difficulty.Level == questionNumber).ToList();
+            var allQuestionsFromLevel = _questionRepository.GetQuestions().Where(x => x.Difficulty.Level == questionNumber).ToList();
             var currentQuestion = allQuestionsFromLevel[_random.Next(0, allQuestionsFromLevel.Count)];
             QuestionModel model = GetQuestionModel(currentQuestion);
             Session["QuestionNumber"] = questionNumber + 1;
@@ -87,8 +86,15 @@ namespace MillionaireGame.Controllers
 
         public int CheckAnswer(int questionId, int selectedOption)
         {
-            var question = _repository.GetQuestionById(questionId);
-            //log
+            var question = _questionRepository.GetQuestionById(questionId);
+            _questionRepository.InsertRecord(
+                new Record
+                {
+                    Question = question,
+                    Answer = selectedOption,
+                    Username = Session["username"].ToString()
+                });
+            _questionRepository.Save();
             return question.Answer;
         }
 
@@ -100,10 +106,12 @@ namespace MillionaireGame.Controllers
                 Options = new List<string>(),
                 QuestionId = question.QuestionId
             };
-            model.Options.Add(question.Option1);
-            model.Options.Add(question.Option2);
-            model.Options.Add(question.Option3);
-            model.Options.Add(question.Option4);
+          
+                model.Options.Add(question.Option1);
+                model.Options.Add(question.Option2);
+                model.Options.Add(question.Option3);
+                model.Options.Add(question.Option4);
+            
             model.QuestionNumber = question.Difficulty.Level;
 
             return model;
@@ -121,24 +129,45 @@ namespace MillionaireGame.Controllers
 
         public ActionResult FiftyFifty(int questionId)
         {
-            var question = _repository.GetQuestionById(questionId);
+            var question = _questionRepository.GetQuestionById(questionId);
 
             QuestionModel model = GetQuestionModel(question);
-
-            var randomList = new List<int>();
-            for (int i = 0; i < 4; i++)
+           
+            var allAnswersForQuestion = _questionRepository.GetRecords().ToList().Where(x => x.Question == question && x.Answer != question.Answer).ToList();
+            if (allAnswersForQuestion.Any())
             {
-                if (i != question.Answer-1)
-                {
-                    randomList.Add(i);
-                }
-            }
-            Random random = new Random();
-            randomList.RemoveAt(random.Next(0, randomList.Count));
+                var groupedRecords = from record in allAnswersForQuestion
+                    group record.Question by record.Answer
+                    into g
+                    select new { Answer = g.Key, AmountOfRecords = g.Count() };
+                var mostPopularAnswer = groupedRecords.OrderByDescending(x => x.AmountOfRecords).First().Answer;
 
-            model.Options[randomList[0]] = "";
-            model.Options[randomList[1]] = "";
-            Session["IsFiftyFiftyUsed"] = true;
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i != question.Answer - 1 && i != mostPopularAnswer - 1)
+                    {
+                        model.Options[i] = "";
+                    }
+                }
+                
+            }
+            else
+            {
+                var randomList = new List<int>();
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i != question.Answer - 1)
+                    {
+                        randomList.Add(i);
+                    }
+                }
+                Random random = new Random();
+                randomList.RemoveAt(random.Next(0, randomList.Count));
+
+                model.Options[randomList[0]] = "";
+                model.Options[randomList[1]] = "";
+            }
+
             return PartialView("QuestionView", model);
         }
 
@@ -154,7 +183,7 @@ namespace MillionaireGame.Controllers
 
         public async Task<ActionResult> SendEmailToFriend(MessageModel model)
         {
-            var question = _repository.GetQuestionById(model.QuestionId);
+            var question = _questionRepository.GetQuestionById(model.QuestionId);
             var messageText = FormTextForMessage(question);
 
             var message = new MailMessage();
@@ -184,7 +213,7 @@ namespace MillionaireGame.Controllers
 
         public ActionResult AskAudience(int questionId)
         {
-            var question = _repository.GetQuestionById(questionId);
+            var question = _questionRepository.GetQuestionById(questionId);
             var dictinary = new Dictionary<string, int>();
             var options = new List<string>
             {

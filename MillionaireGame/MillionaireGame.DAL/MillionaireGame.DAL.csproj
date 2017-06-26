@@ -82,12 +82,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ExceptionDetail.cs" />
+    <Compile Include="Entities\Record.cs" />
     <Compile Include="Entities\Win.cs" />
     <Compile Include="MillionaireContext.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRecordRepository.cs" />
     <Compile Include="Repository\QuestionRepository.cs" />
     <Compile Include="Repository\IQuestionRepository.cs" />
+    <Compile Include="Repository\RecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

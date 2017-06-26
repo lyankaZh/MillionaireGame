@@ -14,7 +14,7 @@ function checkAnswer(e) {
                 success: function (result) {
                     if (selectedButtonId == result) {
                         $(selectedButton).css('background-color', 'greenyellow');
-                        if (window.questionNumber === 3) {
+                        if (window.questionNumber === 15) {
                             setTimeout(function () { takeMoney(); }, 500);
                         } else {
                             $("#next_question").show();

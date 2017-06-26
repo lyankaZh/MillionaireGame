@@ -11,6 +11,11 @@ namespace MillionaireGame.DAL.Repository
         void InsertQuestion(Question question);
         void DeleteQuestion(int questionId);
         void UpdateExcursion(Question question);
+
+        IEnumerable<Record> GetRecords();
+        Record GetRecordById(int recordId);
+        void InsertRecord(Record record);
+
         void Save();
     }    
 }

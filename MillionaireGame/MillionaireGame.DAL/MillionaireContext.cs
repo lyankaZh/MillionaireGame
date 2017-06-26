@@ -13,6 +13,7 @@ namespace MillionaireGame.DAL
 
         public DbSet<Question> Questions { get; set; }
         public DbSet<Win> Wins { get; set; }
+        public DbSet<Record> Records { get; set; }
         public DbSet<ExceptionDetail> ExceptionDetails { get; set; }
 
         public class MillionaireInitializer : DropCreateDatabaseIfModelChanges<MillionaireContext>

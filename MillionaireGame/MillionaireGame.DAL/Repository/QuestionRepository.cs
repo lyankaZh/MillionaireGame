@@ -63,6 +63,21 @@ namespace MillionaireGame.DAL.Repository
             _context.Entry(question).State = EntityState.Modified;
         }
 
+        public IEnumerable<Record> GetRecords()
+        {
+            return _context.Records;
+        }
+
+        public Record GetRecordById(int recordId)
+        {
+            return _context.Records.Find(recordId);
+        }
+
+        public void InsertRecord(Record record)
+        {
+            _context.Records.Add(record);
+        }
+
         public void Save()
         {
             _context.SaveChanges();
