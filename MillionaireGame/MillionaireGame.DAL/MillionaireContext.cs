@@ -6,7 +6,7 @@ namespace MillionaireGame.DAL
 {
     public class MillionaireContext : DbContext
     {
-        public MillionaireContext() : base("MillionaireDb15")
+        public MillionaireContext() : base("name=MillionaireGameConnectionString")
         {
             Database.SetInitializer(new MillionaireInitializer());
         }

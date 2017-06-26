@@ -14,6 +14,7 @@ namespace MillionaireGame
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

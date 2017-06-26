@@ -29,6 +29,7 @@ namespace MillionaireGame.Controllers
 
         public ActionResult Index()
         {
+            throw new ArgumentException();
             return View("Index");    
         }
 
