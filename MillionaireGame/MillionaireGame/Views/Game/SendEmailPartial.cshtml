@@ -56,10 +56,13 @@
         closeButton.css("position", "absolute");
         $(".confirmText").append(closeButton);
     }
-    function invalidEmail() {
-        $("#friendCallCrossed").hide();
-        $("#friendCall").show();
-        paragraph.show();
+
+    function invalidEmail(e) {
+        if (e.status === 400) {
+            $("#friendCallCrossed").hide();
+            $("#friendCall").show();
+            paragraph.show();
+        }   
     }
 </script>
 
