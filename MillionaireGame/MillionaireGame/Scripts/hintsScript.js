@@ -1,7 +1,4 @@
-﻿$("#hint50crossed").hide();
-$("#friendCallCrossed").hide();
-$("#audienceAskCrossed").hide();
-
+﻿
 function fiftyHint() {
     $.ajax({
         url: window.redirectToFiftyUrl,
@@ -14,8 +11,9 @@ function fiftyHint() {
 
         success: function (result) {
             $("#question").html(result);
-            $("#hint50").hide();
-            $("#hint50crossed").show();
+            var hint50 = $("#hint50");
+            hint50.attr("src", "../Content/Images/HintsImages/hint50Crossed.png");
+            hint50.off("click", fiftyHint);
             enableEvents();
         }
     });
@@ -45,13 +43,17 @@ function AskAudienceHint() {
         success: function (result) {  
             $('#audienceModalContent').html(result);
             $('#audienceModal').modal('show');
-            $("#audienceAsk").hide();
-            $("#audienceAskCrossed").show();
+            var audienceAsk = $("#audienceAsk");
+            audienceAsk.attr("src", "../Content/Images/HintsImages/hintAskCrossed.png");
+            audienceAsk.off("click", AskAudienceHint);
+           
         }
     });
 }
 
 function disableEmailHint() {
-    $("#friendCall").hide();
-    $("#friendCallCrossed").show();
+    var friendCall = $("#friendCall");
+    friendCall.attr("src", "../Content/Images/HintsImages/hintPhoneCrossed.png");
+    friendCall.off("click", friendCallHint);
+
 }

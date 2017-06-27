@@ -59,8 +59,9 @@
 
     function invalidEmail(e) {
         if (e.status === 400) {
-            $("#friendCallCrossed").hide();
-            $("#friendCall").show();
+            var friendCall = $("#friendCall");
+            friendCall.attr("src", "../Content/Images/HintsImages/hintPhone.png");
+            friendCall.on("click", friendCallHint);
             paragraph.show();
         }   
     }
