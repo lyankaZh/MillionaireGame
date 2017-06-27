@@ -31,8 +31,6 @@ function friendCallHint() {
         success: function (result) {
             $('#emailModalContent').html(result);
             $('#emailModal').modal('show');
-            //$("#friendCall").hide();
-            //$("#friendCallCrossed").show();
         }
     });
 }
@@ -53,10 +51,7 @@ function AskAudienceHint() {
     });
 }
 
-//function changeHint50Image() {
-    
-//    //var image = $("#hint50");
-//    //image.off("click", fiftyHint);
-//    //image.attr("src", window.hint50CrossedImage);
-//}
-
+function disableEmailHint() {
+    $("#friendCall").hide();
+    $("#friendCallCrossed").show();
+}

@@ -4,7 +4,8 @@
     AjaxOptions ajaxOptions = new AjaxOptions
     {
         OnSuccess = "confirmSending",
-        OnFailure = "invalidEmail"
+        OnFailure = "invalidEmail",
+        OnBegin = "disableEmailHint"
     };
 }
 
@@ -34,7 +35,7 @@
 </div>
 
 <div class="confirmText">
-    <p id="paragraph">Invalid email address</p>
+    <p id="paragraph" style="text-align: center;">Invalid email address</p>
 </div>
 
 
@@ -54,10 +55,10 @@
         closeButton.css("margin-left", " -32em");
         closeButton.css("position", "absolute");
         $(".confirmText").append(closeButton);
-        $("#friendCall").hide();
-        $("#friendCallCrossed").show();
     }
     function invalidEmail() {
+        $("#friendCallCrossed").hide();
+        $("#friendCall").show();
         paragraph.show();
     }
 </script>

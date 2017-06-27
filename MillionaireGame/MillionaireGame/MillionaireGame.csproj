@@ -191,7 +191,9 @@
     <Content Include="Styles\mainErrorsStyles.css" />
     <Content Include="Styles\victoryStyles.css" />
     <Content Include="Content\ErrorPages\PageNotFound.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -232,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MillionaireGame.BLL\MillionaireGame.BLL.csproj">

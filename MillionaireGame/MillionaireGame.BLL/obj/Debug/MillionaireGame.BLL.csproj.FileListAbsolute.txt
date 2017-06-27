@@ -3,3 +3,10 @@ E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.csprojResolveAssemblyReference.cache
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.dll
 E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\obj\Debug\MillionaireGame.BLL.pdb
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\MillionaireGame.DAL.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\EntityFramework.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\MillionaireGame.DAL.pdb
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\EntityFramework.xml
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\MillionaireGame.BLL.dll.config
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\EntityFramework.SqlServer.dll
+E:\EPAM\MillionaireGame\MillionaireGame\MillionaireGame\MillionaireGame.BLL\bin\Debug\EntityFramework.SqlServer.xml

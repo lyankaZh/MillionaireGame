@@ -6,7 +6,7 @@ using MillionaireGame.DAL.Entities;
 
 namespace MillionaireGame.DAL.Repository
 {
-    public class QuestionRepository: IQuestionRepository
+    public class QuestionRepository : IQuestionRepository
     {
         private readonly MillionaireContext _context;
         private bool _disposed;
@@ -25,6 +25,7 @@ namespace MillionaireGame.DAL.Repository
                     _context.Dispose();
                 }
             }
+
             _disposed = true;
         }
 
@@ -51,7 +52,7 @@ namespace MillionaireGame.DAL.Repository
 
         public void DeleteQuestion(int questionId)
         {
-            Question questionToDelete = _context.Questions.Find(questionId);
+            var questionToDelete = _context.Questions.Find(questionId);
             if (questionToDelete != null)
             {
                 _context.Questions.Remove(questionToDelete);
@@ -78,6 +79,10 @@ namespace MillionaireGame.DAL.Repository
             _context.Records.Add(record);
         }
 
+        public IEnumerable<Win> GetWins()
+        {
+            return _context.Wins;
+        }
         public void Save()
         {
             _context.SaveChanges();

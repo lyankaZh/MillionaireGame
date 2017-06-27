@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MillionaireGame.DAL.Entities
 {
@@ -12,6 +7,7 @@ namespace MillionaireGame.DAL.Entities
         [Key]
         [Range(1, 15, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public int Level { get; set; }
+
         public int Sum { get; set; }
     }
 }

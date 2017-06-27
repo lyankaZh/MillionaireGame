@@ -1,4 +1,4 @@
-﻿@model Dictionary<string, string>
+﻿@model IEnumerable<MillionaireGame.DAL.Entities.Win>
 @{
     Layout = null;
     AjaxOptions ajaxOptions = new AjaxOptions
@@ -38,12 +38,12 @@
 
         </div>
         <table>
-            @foreach (KeyValuePair<string, string> entry in Model)
+            @foreach (var entry in Model)
             {
-                var tableId = "t" + entry.Key;
+                var tableId = "t" + entry.Level;
                 <tr id="@tableId">
-                    <td>@entry.Key</td>
-                    <td>@entry.Value$</td>
+                    <td>@entry.Level</td>
+                    <td>@entry.Sum%</td>
                 </tr>
             }
         </table>     

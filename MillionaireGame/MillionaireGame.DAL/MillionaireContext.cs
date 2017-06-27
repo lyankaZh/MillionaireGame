@@ -12,15 +12,18 @@ namespace MillionaireGame.DAL
         }
 
         public DbSet<Question> Questions { get; set; }
+
         public DbSet<Win> Wins { get; set; }
+
         public DbSet<Record> Records { get; set; }
+
         public DbSet<ExceptionDetail> ExceptionDetails { get; set; }
 
         public class MillionaireInitializer : DropCreateDatabaseIfModelChanges<MillionaireContext>
         {
             protected override void Seed(MillionaireContext context)
             {
-                List<Win> wins = new List<Win>
+                var wins = new List<Win>
                 {
                     new Win {Level = 1, Sum = 100},
                     new Win {Level = 2, Sum = 200},
@@ -91,7 +94,6 @@ namespace MillionaireGame.DAL
                         Answer = 3,
                         Difficulty = wins[2]
                     });
-
 
                 context.Questions.Add
                     (new Question
@@ -252,7 +254,6 @@ namespace MillionaireGame.DAL
 
                 base.Seed(context);
             }
-            
         }
     }
 }
