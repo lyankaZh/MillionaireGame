@@ -14,6 +14,7 @@ function fiftyHint() {
             var hint50 = $("#hint50");
             hint50.attr("src", "../Content/Images/HintsImages/hint50Crossed.png");
             hint50.off("click", fiftyHint);
+            hint50.removeAttr("id");
             enableEvents();
         }
     });
@@ -46,7 +47,7 @@ function AskAudienceHint() {
             var audienceAsk = $("#audienceAsk");
             audienceAsk.attr("src", "../Content/Images/HintsImages/hintAskCrossed.png");
             audienceAsk.off("click", AskAudienceHint);
-           
+            audienceAsk.removeAttr("id");
         }
     });
 }
@@ -55,5 +56,4 @@ function disableEmailHint() {
     var friendCall = $("#friendCall");
     friendCall.attr("src", "../Content/Images/HintsImages/hintPhoneCrossed.png");
     friendCall.off("click", friendCallHint);
-
 }
