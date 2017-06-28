@@ -11,7 +11,7 @@ namespace MillionaireGame.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
-        
+
         public GameController(IGameService gameService)
         {
             _gameService = gameService;
@@ -50,7 +50,7 @@ namespace MillionaireGame.Controllers
 
         public int CheckAnswer(int questionId, int selectedOption)
         {
-           _gameService.LogAnswer(questionId, Session["username"].ToString(), selectedOption);
+            _gameService.LogAnswer(questionId, Session["username"].ToString(), selectedOption);
             return _gameService.GetCorrectAnswer(questionId);
         }
 
@@ -91,7 +91,7 @@ namespace MillionaireGame.Controllers
                 Options = _gameService.GetFiftyFiftyOptions(questionId),
                 QuestionNumber = question.Difficulty.Level
             };
-           
+
             return PartialView("QuestionView", model);
         }
 
@@ -118,7 +118,7 @@ namespace MillionaireGame.Controllers
                 return new HttpStatusCodeResult(200);
             }
 
-            return new HttpStatusCodeResult(400);          
+            return new HttpStatusCodeResult(400);
         }
     }
 }

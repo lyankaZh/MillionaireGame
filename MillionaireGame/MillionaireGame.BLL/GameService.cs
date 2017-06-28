@@ -84,15 +84,15 @@ namespace MillionaireGame.BLL
             var allAnswersForQuestion = _questionRepository.GetRecords().ToList()
                 .Where(x => x.Question == question && x.Answer != question.Answer).ToList();
             return allAnswersForQuestion.Any() ? GenerateOptionFromStatistics(question, options, allAnswersForQuestion)
-                                               : GenerateRandomOptions(question, options);
+                : GenerateRandomOptions(question, options);
         }
 
         public List<string> GenerateOptionFromStatistics(Question question, List<string> options, List<Record> allAnswers)
         {
             var groupedRecords = from record in allAnswers
-                                 group record.Question by record.Answer
-                                 into g
-                                 select new { Answer = g.Key, AmountOfRecords = g.Count() };
+                group record.Question by record.Answer
+                into g
+                select new { Answer = g.Key, AmountOfRecords = g.Count() };
             var mostPopularAnswer = groupedRecords.OrderByDescending(x => x.AmountOfRecords).First().Answer;
 
             for (var i = 0; i < 4; i++)
@@ -140,7 +140,7 @@ namespace MillionaireGame.BLL
             };
 
             return allAnswersForQuestion.Any() ? AskAudienceOnStatistics(allAnswersForQuestion, options)
-                                               : AskAudienceOnRandom(allAnswersForQuestion, options, question.Answer);
+                : AskAudienceOnRandom(allAnswersForQuestion, options, question.Answer);
         }
 
         public Dictionary<string, int> AskAudienceOnRandom(List<Record> records, List<string> options, int correctAnswer)
@@ -180,8 +180,8 @@ namespace MillionaireGame.BLL
             var resultDictionary = new Dictionary<string, int>();
             var numberOfASymbol = 65;
             var groupedRecords = (from record in records
-                                  group record.Question by record.Answer into g
-                                  select new { Answer = g.Key, AmountOfRecords = g.Count() }).ToList();
+                group record.Question by record.Answer into g
+                select new { Answer = g.Key, AmountOfRecords = g.Count() }).ToList();
 
             for (var i = 1; i <= 4; i++)
             {
